@@ -1,0 +1,279 @@
+{% extends "/proponent/layout.html" %}
+{% block content %}
+<section style="padding-left: 12%;">
+   <div id="main-wrapper" class="container">
+   <div class="row justify-content-center">
+      <div class="col-xl-11">
+         <div class="card border-0">
+            <div class="card-body p-0">
+               <div class="col-lg-12">
+                  <div class="p-5">
+                     <div class="mb-9">
+                        <h3 class="h4 font-weight-bold text-theme" style="text-align:center;">DETAILS OF PROJECT</h3>
+                        <br><br>
+                     </div>
+                     <form action="/form_2" method="POST" enctype="multipart/form-data" class="needs-validation">
+                     <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputname1">Name of the project</label>
+                              <input type="text" name="name" class="form-control" id="inputname-1" required>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputAddress1">Address of the Project Location</label>
+                              <input type="text" name="add1" class="form-control" id="inputAddress1" required >
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputState">State</label>
+                                       <select name="add2" id="inputState" class="form-control" required>
+                                          <option>Select State</option>
+                                          <option value="Andra Pradesh">Andra Pradesh</option>
+                                          <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                          <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                          <option value="Assam">Assam</option>
+                                          <option value="Bihar">Bihar</option>
+                                          <option value="Chhattisgarh">Chhattisgarh</option>
+                                          <option value="Chandigarh">Chandigarh</option>
+                                          <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                          <option value="Daman and Diu">Daman and Diu</option>
+                                          <option value="Delhi">Delhi</option>
+                                          <option value="Goa">Goa</option>
+                                          <option value="Gujarat">Gujarat</option>
+                                          <option value="Haryana">Haryana</option>
+                                          <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                          <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                          <option value="Jharkhand">Jharkhand</option>
+                                          <option value="Karnataka">Karnataka</option>
+                                          <option value="Kerala">Kerala</option>
+                                          <option value="Lakshadeep">Lakshadeep</option>
+                                          <option value="Madya Pradesh">Madya Pradesh</option>
+                                          <option value="Maharashtra">Maharashtra</option>
+                                          <option value="Manipur">Manipur</option>
+                                          <option value="Meghalaya">Meghalaya</option>
+                                          <option value="Mizoram">Mizoram</option>
+                                          <option value="Nagaland">Nagaland</option>
+                                          <option value="Orissa">Orissa</option>
+                                          <option value="Punjab">Punjab</option>
+                                          <option value="Pondicherry">Pondicherry</option>
+                                          <option value="Rajasthan">Rajasthan</option>
+                                          <option value="Sikkim">Sikkim</option>
+                                          <option value="Tamil Nadu">Tamil Nadu</option>
+                                          <option value="Telagana">Telagana</option>
+                                          <option value="Tripura">Tripura</option>
+                                          <option value="Uttaranchal">Uttaranchal</option>
+                                          <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                          <option value="West Bengal">West Bengal</option>
+                                       </select>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-6">
+                              <label for="inputland1">Nearest Mode of Transportation</label>
+                              <select id="inputland1" name="mot" class="form-control" required>
+                                 <option >Select Option</option>
+                                 <option value="Air port">Air port</option>
+                                 <option value="Sea port">Sea port</option>
+                                 <option value="Railway Station">Railway Station</option>
+                                 <option value="Bus Stand">Bus Stand</option>
+                                 <option value="Others">Others</option>
+                              </select>
+                           </div>
+                           <br>
+                           <div class="form-group col-md-6">
+                              <label for="inputlandname1">Name of the nearest mode of transport</label>
+                              <input type="text" name="mot_name" class="form-control" id="inputlandname1" required>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputAddressland1">Address of the selected transport Line 1</label>
+                              <input type="text" name="mot_add1" class="form-control" id="inputAddressland1" required >
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputAddressland2">Address of the selected transport Line 2</label>
+                              <input type="text" name="mot_add2" class="form-control" id="inputAddressland2" >
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputdisland1">Distance between the location and the selected mode of transport ( in kms ) </label>
+                              <input type="text" name="distance" class="form-control" id="inputdisland1" required>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-6">
+                              <label for="inputarea1">Area of the land (in acres )</label>
+                              <input type="text" name="area" class="form-control" id="inputarea1" required>
+                           </div>
+                           <div class="form-group col-md-6">
+                              <label for="inputlandtype1">Classification of project</label>
+                              <select id="inputlandtype1" name="cop" class="form-control" required>
+                                 <option>Select Option</option>
+                                 <option value="Creation">Creation(Greenfield)</option>
+                                 <option value="Upgradation">Updation(Brownfield)</option>
+                           </select>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-6">
+                              <label for="inputlandtype1"> Select the type of land</label>
+                              <select id="inputlandtype1" name="type" class="form-control" required>
+                                 <option>Select Option</option>
+                                 <option value="Recreational land">Recreational land</option>
+                                 <option value="Used by general public">Used by general public</option>
+                                 <option value="Construction of Infrastructure">Construction of Infrastructure</option>
+                                 <option value="Others">Others</option>
+                              </select>
+                           </div>
+                           <br>
+                           <div class="form-group col-md-6">
+                              <label for="inputother1">If others, specify</label>
+                              <input type="text" name="other_type" class="form-control" id="inputother1">
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-6">
+                              <label for="inputown1">Land Ownership</label>
+                              <select id="inputown1" name="ownership" class="form-control" required>
+                                 <option >Select Option</option>
+                                 <option value="Owned">Owned</option>
+                                 <option value="Leased">Leased</option>
+                              </select>
+                           </div>
+                           <div class="col-md-6">
+                              <label for="inputown1">Upload proof of land ownership</label>
+                              <input type="file" name="land_proof" style="background-color: rgb(255, 255, 255);" class="form-control"  
+                                 required>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputavail1">Is the land readily available for executing the project?</label>
+                              <select id="inputavai1" name="availability" class="form-control" required>
+                                 <option>Select Option</option>
+                                 <option value="Yes">Yes</option>
+                                 <option value="No">No</option>
+                              </select>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="col-md-12">
+                              <label for="inputState">Upload the supporting certificate that the land is developed and ready for execution</label>
+                              <input type="file" name="land_certificate" style="background-color: rgb(255, 255, 255);" class="form-control"  required>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inpututil1">Select the utilities provided</label>
+                              <div class="form-check">
+                                 <input name="utilities" class="form-check-input" type="checkbox" value="Power" id="flexCheckDefault">
+                                 <label class="form-check-label" for="flexCheckDefault">
+                                 Power
+                                 </label>
+                              </div>
+                              <div class="form-check">
+                                 <input name="utilities" class="form-check-input" type="checkbox" value="Water Supply" id="flexCheckChecked-1" >
+                                 <label class="form-check-label" for="flexCheckChecked">
+                                 Water Supply
+                                 </label>
+                              </div>
+                              <div class="form-check">
+                                 <input name="utilities" class="form-check-input" type="checkbox" value="Drainage" id="flexCheckChecked-2">
+                                 <label class="form-check-label" for="flexCheckChecked">
+                                 Drainage
+                                 </label>
+                              </div>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-6">
+                              <label for="inputState">Category of the Infrastructure</label>
+                              <select id="inputState" name="category" class="form-control" required>
+                                 <option>Select Value</option>
+                                 <option value="Synthetic Athletic Track">Synthetic Athletic Track</option>
+                                 <option value="Synthetic Hockey Field">Synthetic Hockey Field</option>
+                                 <option value="Synthetic Turf Football ground">Synthetic Turf Football ground</option>
+                                 <option value="Multipurpose Hall">Multipurpose Hall</option>
+                                 <option value="Swimming Pool">Swimming Pool</option>
+                                 <option value="Human Performance and Recovery Laboratory">Human Performance and Recovery Laboratory</option>
+                                 <option value="Others">Others</option>
+                              </select>
+                           </div>
+                           <br>
+                           <div class="form-group col-md-6">
+                              <label for="inputname1">If others, specify</label>
+                              <input type="text" name="other_cat" class="form-control" id="inputname-2">
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputname1">Mention the ancillary facilities</label>
+                              <input type="text" name="ancillary" class="form-control" id="inputname1" required>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputname1">Estimated cost of the Project</label>
+                              <input type="text" name="cost" class="form-control" id="inputname1" required>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="col-md-12">
+                              <label for="inputState">Upload evidence of project costing, quotations and site specific schematic plans </label>
+                              <input type="file" name="boq" style="background-color: rgb(255, 255, 255);" class="form-control"  
+                                 required>
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="form-group col-md-6">
+                              <label for="inputname1">Centre's share</label>
+                              <input type="text" name="share" class="form-control" id="inputname1" required>
+                           </div>
+                           <div class="col-md-6">
+                              <label for="inputState">How will this difference be met?</label>
+                              <input type="file" name="difference" style="background-color: rgb(255, 255, 255);" class="form-control">
+                           </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                           <div class="col-md-12">
+                              <label for="inputState">Upload the Key Milestones with timelines</label>
+                              <input type="file" name="milestones" style="background-color: rgb(255, 255, 255);" class="form-control"  
+                                 required>
+                           </div>
+                        </div>
+                        <br><br>
+                        <div class="container" style="width: 100%; display: flex; justify-content: center;">
+                           <input style="padding: auto; width: 30%;" type="submit" value="NEXT" class="form-control-login btn btn-theme btn-lg">
+                        </div>
+                      </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,87 @@
+{% extends "proponent/layout.html" %}
+{% block content %}
+<section style="padding-left: 12%;">
+    <div id="main-wrapper" class="container">
+       <div class="row justify-content-center">
+          <div class="col-xl-11">
+             <div class="card border-0">
+                <div class="card-body p-0">
+                   <div class="col-lg-12">
+                      <div class="p-5">
+                         <div class="mb-9">
+                            <h3 class="h4 font-weight-bold text-theme" style="text-align: center;">SUPPORTING DOCUMENTS</h3>
+                         </div>
+                         <br>
+                         <h5> Provide the following documents:</h5>
+                         <br>
+                         <form action="/form_5" method="POST" enctype="multipart/form-data" class="needs-validation" onsubmit="myFunction()">
+                         <div class="form-group">
+                               <label for="inputfile1">Post execution maintanence plan for the project including source of funds for maintanence, etc.</label>
+                               <input type="file" name="maintanence" class="form-control" id="inputfile1" required >
+                            </div>
+                            <br>
+                            <div class="form-group">
+                               <label for="inputfile2">Drawing and Designs prepared by the executing agency</label>
+                               <input type="file" name="design" class="form-control" id="inputfile2" required >
+                            </div>
+                            <br>
+                            <div class="form-group">
+                               <label for="inputname1">Has the organization implemented previous projects funded by the Government of India, Department of Sports?</label>
+                               <select id="inputname1" name="prev" class="form-control" required>
+                                  <option value="">Select Option</option>
+                                  <option value="Yes">Yes</option>
+                                  <option value="No">No</option>
+                               </select>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                               <label for="inputname2">Does the organization have overdue projects funded by the Government of India, Department of Sports?</label>
+                               <select id="inputname2" name="od" class="form-control" required>
+                                  <option value="">Select Option</option>
+                                  <option value="Yes">Yes</option>
+                                  <option value="No">No</option>
+                               </select>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                               <label for="inputname3">Does the organization have successfully completed projects funded by the Government of India, Department of Sports?</label>
+                               <select id="inputname3" name="comp" class="form-control" required>
+                                  <option value="">Select Option</option>
+                                  <option value="Yes">Yes</option>
+                                  <option value="No">No</option>
+                               </select>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                               <label for="inputfile3">If yes, provide the requisite Utilisation certificate</label>
+                               <input type="file" name="u-certificate" class="form-control" id="inputfile3" >
+                            </div>
+                            <br>
+                            <div class="form-group">
+                               <label for="inputfile4">Also, provide the details of Physical and Financial Progress</label>
+                               <input type="file" name="details" class="form-control" id="inputfile4" >
+                            </div>
+                            <br>
+                            <div class="form-group">
+                               <label for="inputfile5">Submit photographic Evidence proof</label>
+                               <input type="file" name="proof" class="form-control" id="inputfile5" >
+                            </div>
+                            <br>
+                            <div class="container" style="width: 100%; display: flex; justify-content: center;">
+                               <input style="padding: auto; width: 30%;"   type="submit"  value="SUBMIT" class="form-control-login btn btn-theme btn-lg  ">
+                            </div>
+                         </form>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </section>
+ <script>
+   function myFunction() {
+     alert("The form was submitted successfully");
+   }
+   </script>
+{% endblock content %}

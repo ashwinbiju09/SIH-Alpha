@@ -1,0 +1,133 @@
+{% extends "proponent/layout.html" %}
+{% block content %}
+      <section style="padding-left: 12%;">
+         <div id="main-wrapper" class="container">
+            <div class="row justify-content-center">
+               <div class="col-xl-11">
+                  <div class="card border-0">
+                     <div class="card-body p-0">
+                        <div class="col-lg-12">
+                           <div class="p-5">
+                              <div class="mb-9">
+                                 <h3 class="h4 font-weight-bold text-theme" style="text-align:center;">Terms and conditions</h3>
+                                 <br><br>
+                              </div>
+                              <form action="/application" method="POST">
+                                 <p><b>What types of infrastructure may be funded under this sub-component?</b></p>
+                                 <p>• The Scheme envisages providing support to a wide variety of sports infrastructure 
+                                    projects, both Greenfield and Brownfield projects, provided they aim at bridging critical gaps in 
+                                    sports infrastructure to meet existing demands. Accordingly, all applications will have to include 
+                                    an action plan clearly demonstrating how participation, especially community participation will 
+                                    be increased through the proposed project(s).
+                                 </p>
+                                 <p>• Projects will also be judged on the basis of their potential for inclusivity by encouraging 
+                                    participation of females, persons with disabilities, etc., potential for multi-use through the 
+                                    Universal Design principle, opportunities for collaboration with various stakeholders, including 
+                                    educational institutions, community groups and sports bodies, as well as environmental 
+                                    sustainability and
+                                 </p>
+                                 <p>• Areas which have experienced natural disasters, such as flood and drought, and with 
+                                    strong demand for sports facilities due to popularity of one or more sports disciplines or strong 
+                                    population growth or significant change in circumstances (e.g. economic challenges) will be 
+                                    given priority.
+                                 </p>
+                                 <p>• Individual component(s) of larger sports facilities, such as stadia, sports complexes, etc., 
+                                    will be eligible for funding provided the proposed component(s)meet the assessment criteria of 
+                                    this Scheme.
+                                 </p>
+                                 <p>• Projects on land belonging to schools, colleges, Universities and other educational 
+                                    institutions will be eligible subject to a MoU between the Department of Sports of the 
+                                    Central/State Government and the Department of Education concerned of the Central/State 
+                                    Government.
+                                 </p>
+                                 <p>• Project management fees of up to 5 per cent of the total project cost may also be allowed 
+                                    per project.
+                                 </p>
+                                 <br>
+                                 <p><b>What will not be funded?</b></p>
+                                 <p>The Infrastructure Component of the Scheme will not fund:</p>
+                                 <p>• projects where the total project cost exceeds project-wise cost ceilings under the Scheme and 
+                                    where source(s) of funds to meet the excess cost is not confirmed in writing by the source(s) 
+                                    concerned.
+                                 </p>
+                                 <p>• projects that do not strongly meet the assessment criteria</p>
+                                 <p>• projects that do not meet the eligibility criteria</p>
+                                 <p>• projects that do not align with the objectives of the program</p>
+                                 <p>• where the applicant(s) have previously availed of grants from the Government of India, 
+                                    Department of Sports, but have not submitted requisite Utilisation Certificate with details of 
+                                    physical and financial progress supported by documentary and photographic evidence
+                                 </p>
+                                 <p>• projects that do not meet relevant standards </p>
+                                 <p>• requests for retrospective funding, where projects have commenced construction or are 
+                                    completed prior to the execution of a funding agreement (construction includes, but not 
+                                    limited to, site clearing, earthworks, building works and any form of early works) 
+                                 </p>
+                                 <p>• the purchase of land (in general, the land on which the facility development is proposed will 
+                                    be property of the eligible Grantee, land owned by a public authority, or land held for public 
+                                    purposes)
+                                 </p>
+                                 <p>• facilities where little or no public access is available</p>
+                                 <p>• routine or cyclical maintenance works</p>
+                                 <p>• repair/upgradation of facilities damaged due to any cause where the damage can be covered 
+                                    by insurance
+                                 </p>
+                                 <p>• requests for ongoing operational costs such as, but not limited to, salaries, electricity, water, 
+                                    asset maintenance and other utilities
+                                 </p>
+                                 <p>• costs associated with the purchase of transport or any other type of vehicle</p>
+                                 <p>• upgrading or redeveloping stand-alone facilities like pantry or public toilet facilities, except as 
+                                    part of a larger project that meets the objectives of the funding program
+                                 </p>
+                                 <p>• purchasing or maintaining recreation, entertainment, sporting, life-saving or any other 
+                                    equipment (except as part of facility fit out)
+                                 </p>
+                                 <p>• projects previously funded by Government of India, Department of Sports, unless applicants 
+                                    can demonstrate additional or new uses resulting in increased participation/programme 
+                                    outcomes
+                                 </p>
+                                 <p>• the replacement of like-for-like surfaces (e.g. tennis hard-court surface replaced by a similar 
+                                    hard-court surface) will not be considered a priority to receive funding unless it can be 
+                                    demonstrated that additional uses are proposed and/or a multi-purpose element is being 
+                                    introduced. Additional use should be confirmed through letter of support and schedule of use.
+                                 </p>
+                                 <p>• Exceptional circumstances may be considered where a safety standard or compliance issue is 
+                                    evident
+                                 </p>
+                                 <p>• projects that do not demonstrate how the principles of Universal Design and Environmentally 
+                                    Sustainable Design have been incorporated
+                                 </p>
+                                 <p>• costs for the design of sport and recreation facilities only.</p>
+                                 </p>
+                                 <br><br>
+                                 <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                                    <label class="form-check-label"  for="exampleCheck1"><b>I have read the terms and conditions</b></label>
+                                    <br>
+                                 </div>
+                                 <br>
+                                 <div class="container" style="width: 100%; display: flex; justify-content: center;">
+                                    <input style="padding: auto; width: 10%;" type="submit"  value="SUBMIT" class="form-control-login btn btn-theme btn-lg" href="">
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <script>
+         let sidebar = document.querySelector(".sidebar");
+         let sidebarBtn = document.querySelector(".sidebarBtn");
+         sidebarBtn.onclick = function() {
+         sidebar.classList.toggle("active");
+         if(sidebar.classList.contains("active")){
+           sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+         }else
+           sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+         }
+      </script>
+   </body>
+</html>
+{% endblock content %}

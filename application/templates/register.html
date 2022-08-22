@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+      <title>Sign up</title>
+   </head>
+
+   <body>
+      <div id="main-wrapper" class="container">
+         <div class="row justify-content-center">
+            <div class="col-xl-10">
+               <div class="card border-0">
+                  <div class="card-body p-0">
+                     <div class="col-lg-12">
+                        <div class="p-5">
+                           <div class="mb-9">
+                              <h3 class="h4 font-weight-bold text-theme" style="text-align: center; ">Sign Up</h3>
+                           </div>
+                           <form  action="/register" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
+                              <div class="container form-group">
+                                 <br>
+                                 <div class="row">
+                                    <div class="col">
+                                       <p>Enter Name</p>
+                                       <input type="text" style="background-color: rgb(255, 255, 255);" class="form-control" name="name" required>
+                                    </div>
+                                    <div class="col">
+                                       <p>Enter Email</p>
+                                       <input type="email" style="background-color: rgb(255, 255, 255);"  class="form-control"  name="email"  required>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col">
+                                       <br>
+                                       <p>Enter Password</p>
+                                       <input type="password" style="background-color: rgb(255, 255, 255);" class="form-control"  name="password"  required>
+                                    </div>
+                                    <div class="col">
+                                       <br>
+                                       <p>Confirm Password</p>
+                                       <input type="password" style="background-color: rgb(255, 255, 255);" class="form-control" name="confirm_password" required>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col">
+                                       <br>
+                                       <p>Enter Mobile Number</p>
+                                       <input type="tel" maxlength="10" style="background-color: rgb(255, 255, 255);" class="form-control" name="phone"  required>
+                                    </div>
+                                    <div class="col">
+                                       <br>
+                                       <p>Select Role</p>
+                                       <select class="form-control form-control-md" style="background-color: rgb(255, 255, 255);" id="role" name="role" required>
+                                          <option value="">Select Role</option>
+                                          <option value="Proponent" >Proponent</option>
+                                          <option value="Tech">Technical Committee</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col">
+                                       <br>
+                                       <p>Select State</p>
+                                       <select class="form-control form-control-md" style="background-color: rgb(255, 255, 255);" id="state" name="state" required>
+                                          <option value="">Select State</option>
+                                          <option value="1">Andhra Pradesh</option>
+                                          <option value="2">Andaman and Nicobar Islands</option>
+                                          <option value="3">Arunachal Pradesh</option>
+                                          <option value="4">Assam</option>
+                                          <option value="5">Bihar</option>
+                                          <option value="6">Chhattisgarh</option>
+                                          <option value="7">Chandigarh</option>
+                                          <option value="8">Dadar and Nagar Haveli</option>
+                                          <option value="9">Daman and Diu</option>
+                                          <option value="10">Delhi</option>
+                                          <option value="11">Goa</option>
+                                          <option value="12">Gujarat</option>
+                                          <option value="13">Haryana</option>
+                                          <option value="14">Himachal Pradesh</option>
+                                          <option value="15">Jammu and Kashmir</option>
+                                          <option value="16">Jharkhand</option>
+                                          <option value="17">Karnataka</option>
+                                          <option value="18">Kerala</option>
+                                          <option value="19">Lakshadeep</option>
+                                          <option value="20">Madhya Pradesh</option>
+                                          <option value="21">Maharashtra</option>
+                                          <option value="22">Manipur</option>
+                                          <option value="23">Meghalaya</option>
+                                          <option value="24">Mizoram</option>
+                                          <option value="25">Nagaland</option>
+                                          <option value="26">Orissa</option>
+                                          <option value="27">Punjab</option>
+                                          <option value="28">Pondicherry</option>
+                                          <option value="29">Rajasthan</option>
+                                          <option value="30">Sikkim</option>
+                                          <option value="31">Tamil Nadu</option>
+                                          <option value="32">Telagana</option>
+                                          <option value="33">Tripura</option>
+                                          <option value="34">Uttaranchal</option>
+                                          <option value="35">Uttar Pradesh</option>
+                                          <option value="36">West Bengal</option>
+                                       </select>
+                                    </div>
+                                    <div class="col">
+                                       <br>
+                                       <p>Enter City</p>
+                                       <input type="text" style="background-color: rgb(255, 255, 255);" class="form-control" name="city"  required>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col">
+                                       <br>
+                                       <p>Enter Organization name</p>
+                                       <input type="text"  style="background-color: rgb(255, 255, 255);"  class="form-control" name="org_name" required>
+                                    </div>
+                                    <div class="col">
+                                       <br>
+                                       <p>Enter Aadhar Number</p>
+                                       <input type="tel" maxlength="12" style="background-color: rgb(255, 255, 255);" class="form-control" name="aadhar"  required>
+                                    </div>
+                                 </div>
+                              </div>
+                              <br>
+                              <div class="container" style="width: 100%; display: flex; justify-content: center;">
+                                 <input style="padding: auto; width: 50%;" type="submit" id="edit-submit" value="Submit" class="form-control-login btn btn-theme btn-lg ">
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <p class="text-muted text-center mt-3 mb-0">Already have an account ? <a href="{{ url_for('login') }}" class="text-primary ml-1">Login</a></p>
+               <br><br>
+            </div>
+         </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+   </body>
+
+</html>
+

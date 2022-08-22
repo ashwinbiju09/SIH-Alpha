@@ -1,0 +1,74 @@
+{% extends "committee/layout.html" %}
+{% block content %}
+      <section style="padding-left:20% ;">
+         <br><br>
+         <h3 class="h4 font-weight-bold text-theme" style="text-align:center;padding-right: 17%;">USER PROFILE</h3>
+         <br>
+         <div class="container">
+            <div class="main-body">
+               <div class="row gutters-sm">
+                  <div class="col-md-10 mb-3">
+                     <div class="card">
+                        <div class="card-body">
+                           <div class="d-flex flex-column align-items-center text-center">
+                              <img src="/static/images/user_logo.png" alt="Admin" class="rounded-circle" width="150">
+                              <div class="mt-2">
+                                 <h4>{{ current_user.name }}</h4>
+                                 <p class="text-secondary mb-1">{{ current_user.role }}</p>
+                                 <p class="text-muted font-size-sm">{{ current_user.org_name }}</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-10">
+                     <div class="card mb-3">
+                        <div class="card-body">
+                           <div class="row">
+                              <div class="col-sm-3">
+                                 <h6 class="mb-0">Full Name</h6>
+                              </div>
+                              <div class="col-sm-9 text-secondary">
+                                 {{ current_user.name }}
+                              </div>
+                           </div>
+                           <hr>
+                           <div class="row">
+                              <div class="col-sm-3">
+                                 <h6 class="mb-0">Email</h6>
+                              </div>
+                              <div class="col-sm-9 text-secondary">
+                                 {{ current_user.email }}
+                              </div>
+                           </div>
+                           <hr>
+                           <div class="row">
+                              <div class="col-sm-3">
+                                 <h6 class="mb-0">Phone</h6>
+                              </div>
+                              <div class="col-sm-9 text-secondary">
+                                 +91-{{ current_user.phone }}
+                              </div>
+                           </div>
+                           <hr>
+                           <div class="row">
+                              <div class="col-sm-3">
+                                 <h6 class="mb-0">Aadhar number</h6>
+                              </div>
+                              <div class="col-sm-9 text-secondary">
+                                 {{ current_user.aadhar }}
+                              </div>
+                           </div>
+                           <hr>
+                           <div class="row">
+                              <div class="col-sm-12">
+                                 <a class="btn btn-light" style="background-color: rgb(255, 159, 25)!important;color: #ffff;" target="__blank" href="#">Edit</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+      </section>
+{% endblock content %}

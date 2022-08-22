@@ -1,0 +1,15 @@
+body{
+    margin-top:50px;
+    background: #f6f9fc;
+}
+
+
+.text-theme {
+    color: #F08b14 !important;
+}
+
+.btn-theme {
+    background-color: #F08b14;
+    border-color: #F08b14;
+    color: #fff;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Khel Hindustan - Committee</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+      <link rel='stylesheet' href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+   </head>
+   <body>
+      <div class="sidebar">
+         <ul class="nav-links">
+            <li>
+               <a href="{{ url_for('committee') }}">
+               <i class='bx bx-box'></i>
+               <span class="links_name">My profile</span>
+               </a>
+            </li>
+            <li>
+               <a href="{{ url_for('projects') }}">
+               <i class='bx bx-list-ul' ></i>
+               <span class="links_name">Applications</span>
+               </a>
+            </li>
+            <li>
+               <a href="{{ url_for('sanctioned_projects') }}">
+               <i class='bx bx-grid-alt' ></i>
+               <span class="links_name">Sanctioned Projects</span>
+               </a> 
+            </li>
+            <li>
+               <a href="#">
+               <i class='bx bx-book-alt' ></i>
+               <span class="links_name">Rejected Projects</span>
+               </a>
+            </li>
+            <li class="log_out">
+               <a href="{{ url_for('logout') }}">
+               <i class='bx bx-log-out'></i>
+               <span class="links_name">Log out</span>
+               </a>
+            </li>
+         </ul>
+      </div>
+
+      {% block content %} {% endblock content %}
+
+      <script>
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function() {
+        sidebar.classList.toggle("active");
+        if(sidebar.classList.contains("active")){
+          sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+        }
+        else
+          sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+     </script>
+  </body>
+</html>

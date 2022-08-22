@@ -1,0 +1,46 @@
+{% extends "proponent/layout.html" %}
+{% block content %}
+
+<section style="padding-left: 12%;">
+    <div id="main-wrapper" class="container">
+       <div class="row justify-content-center">
+          <div class="col-xl-11">
+             <div class="card border-0">
+                <div class="card-body p-0">
+                   <div class="col-lg-12">
+                      <div class="p-5">
+                         <div class="mb-9">
+                            <h3 class="h4 font-weight-bold text-theme" style="text-align:center;">Submitted Applications</h3>
+                            <br><br>
+                            {% for q in allq %}
+                            <div class="row">
+                               <div class="card col-md-4-wp4" style="width: 18rem;height:auto;">
+                                  <img class="card-img-top" src="static/images/card-img.jpg" alt="Card image cap">
+                                  <div class="card-body">
+                                     <h6 class="card-title">Project Name: {{ q.name }}</h6>
+                                     <h6>Project ID: {{ q.id }}</h6>
+                                     <h6>Project Location: {{ q.add2 }}</h6>
+                                     <h6>Project Status : <b style="color:blue;">In process</b></h6>
+                                     <p class="card-text"></p>
+                                  </div>
+                                  
+                                  <div class="card-body">
+                                     <div class="container" style="width: 100%; display: flex; justify-content: center;">
+                                        <form method ="POST" action="/existing_applications" style="padding-left:60%;">
+                                           <a href="/dpr/{{q.id}}" style="padding: auto; width: 20%;justify-content: left;padding-right:100%;" type="button" class="form-control-login btn btn-theme btn-md">View Details</a>
+                                        </form>
+                                     </div>
+                                  </div>
+                               </div>
+                            </div>
+                            {% endfor %}
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </section>
+ {% endblock content %}

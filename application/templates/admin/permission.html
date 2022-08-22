@@ -1,0 +1,55 @@
+{% extends "/admin/layout.html" %}
+{% block content %}
+<section style="padding-left:17%;padding-top:3%; padding-right:1%">
+   <h3 class="h4 font-weight-bold text-theme" style="text-align:center;padding-right: 17%;">Technical team</h3>
+   <br>
+   <div class="table-responsive text-nowrap">
+      <table class="table table-striped">
+         <thead>
+            <tr style="background-color: #F08B14;font-family: sans-serif;text-align: center;">
+               <th>USER ID</th>
+               <th>EMAIL</th>
+               <th>DESIGNATION</th>
+               <th>APPROVE</th>
+               <th>REJECT</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for value in users %}
+            {% if value.permission == False %}
+            <tr>
+            <form method="POST" action="/approval">
+                <input type="hidden" name="user_id" value="{{ value.id }}"/>
+                  <td>{{ value.id }}</td>
+                  <td>{{ value.email }}</td>
+                  <td>{{ value.org_name }}</td>
+                  <td>
+                     <button  type="submit" name="permission" value=1 class="btn btn-success">Approve Access</button>
+                  </td>
+                  <td>
+                     <button type="submit" name="permission" value=0 class="btn btn-danger">Deny Access</button>
+                  </td>
+            </tr>
+            {% endif %}
+            {% if value.permission == True %}
+            <tr style="background:#90ee90 ;">
+            <form method="POST" action="/approval">
+              <input type="hidden" name="user_id" value="{{ value.id }}"/>
+                <td>{{ value.id }}</td>
+                <td>{{ value.email }}</td>
+                <td>{{ value.org_name }}</td>
+                <td>
+                    <button type="submit" name="permission" value=1 class="btn btn-success">Approve Access</button>
+                </td>
+                <td>
+                    <button type="submit" name="permission" value=0 class="btn btn-danger">Deny Access</button>
+                </td>
+            </form>
+            </tr>           
+            {% endif %}
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+</section>
+{% endblock content %}

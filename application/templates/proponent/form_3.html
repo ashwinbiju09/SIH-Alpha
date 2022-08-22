@@ -1,0 +1,124 @@
+{% extends "/proponent/layout.html" %}
+{% block content %}
+      <section style="padding-left: 12%;">
+         <div id="main-wrapper" class="container">
+            <div class="row justify-content-center">
+               <div class="col-xl-11">
+                  <div class="card border-0">
+                     <div class="card-body p-0">
+                        <div class="col-lg-12">
+                           <div class="p-5">
+                              <div class="mb-9">
+                                 <h3 class="h4 font-weight-bold text-theme" style="text-align: center;">PROJECT DEVELOPMENT</h3>
+                              </div>
+                              <br><br>
+                              <form action="/form_3" method="POST" enctype="multipart/form-data" class="needs-validation">
+                                 <div class="form-group">
+                                    <label for="inputfile1">Project scope,methodology and how proposed outcomes will be completed within a prescribed timeframe</label>
+                                    <input type="file" name="scope" class="form-control" id="inputfile1" required >
+                                 </div>
+                                 <br>
+                                 <div class="form-group">
+                                    <label for="inputfile2">How does the site specific schematic plans address site considerations, safety, risk management, Universal Design Principals, Environmentally Sustainable Designs?</label>
+                                    <input type="file" name="schematic_plan" class="form-control" id="inputfile2" required>
+                                 </div>
+                                 <br>
+                                 <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                       <label for="inputown1">Does the project enforce any innovative and creative methods for reducing cost and implementation period?</label>
+                                       <select id="inputown1" name="inc" class="form-control" required>
+                                          <option value="">Select Option</option>
+                                          <option value="Yes">Yes</option>
+                                          <option value="No">No</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                                 <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                       <label for="inputfile3">If so, provide details, including how the proposed method helps achieve these objectives?</label>
+                                       <input type="file" name="proposed_method" class="form-control" id="inputfile3" required >
+                                    </div>
+                                 </div>
+                                 <br>
+                                 <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                       <label for="inputfile4">Fast track single window for clearances</label>
+                                       <input type="file" name="fastrack"  class="form-control" id="inputfile4" required >
+                                    </div>
+                                 </div>
+                                 <br>
+                                 <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                       <label for="inputfile5">Facility Management & utilisation plan which addresses operational and financial sustainability</label>
+                                       <input type="file" name="utilization_plan" class="form-control" id="inputfile5" required >
+                                    </div>
+                                 </div>
+                                 <br>
+                                 <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                       <label for="inputfile6">How does the project demonstrate economic impact during construction and operation,including employment during and after construction?</label>
+                                       <input type="file" name="economic_impact" class="form-control" id="inputfile6" required>
+                                    </div>
+                                 </div>
+                                 <br>
+                                 <div class="form-group ">
+                                    <label for="inputState">Select the available sports Infrastructure</label>
+                                    <div class="form-check">
+                                       <input class="form-check-input" name="asi" type="checkbox" value="Stadium" id="flexCheckDefault-1">
+                                       <label class="form-check-label" for="flexCheckDefault">
+                                       Stadium
+                                       </label>
+                                    </div>
+                                    <div class="form-check">
+                                       <input class="form-check-input" name="asi" type="checkbox" value="Open Space" id="flexCheckChecked-2" >
+                                       <label class="form-check-label" for="flexCheckChecked">
+                                       Open Space
+                                       </label>
+                                    </div>
+                                    <div class="form-check">
+                                       <input class="form-check-input" name="asi" type="checkbox" value="Auditorium" id="flexCheckChecked-3">
+                                       <label class="form-check-label" for="flexCheckChecked">
+                                       Auditorium
+                                       </label>
+                                    </div>
+                                    <div class="form-check">
+                                       <input class="form-check-input" name="asi" type="checkbox" value="Provision of utilities" id="flexCheckChecked-4">
+                                       <label class="form-check-label" for="flexCheckChecked">
+                                       Provision of utilities
+                                       </label>
+                                    </div>
+                                 </div>
+                                 <br>
+                                 <div class="form-group">
+                                    <label for="inputfile6">How can they be integrated with the proposed project?</label>
+                                    <input type="file" name="integration" class="form-control" id="inputfile7" required>
+                                 </div>
+                                 <br>
+                                 <div class="form-group">
+                                    <label for="inputnum2">Number of centres for training of National level Players</label>
+                                    <input type="text" name="noc" class="form-control" id="inputnum2" required >
+                                 </div>
+                                 <br>
+                                 <div class="form-group">
+                                    <label for="inputnum3">Number of National and International level players from the State in disciplines included in the Asian Games/Common Wealth Games/Olympics</label>
+                                    <input type="text" name="nop" class="form-control" id="inputnum3" required >
+                                 </div>
+                                 <br>
+                                 <div class="form-group">
+                                    <label for="inputnum4">User base</label>
+                                    <input type="text" name="ub" class="form-control" id="inputnum4" >
+                                 </div>
+                                 <br>
+                                 <div class="container" style="width: 100%; display: flex; justify-content: center;">
+                                    <button style="padding: auto; width: 30%;" type="submit" class="form-control-login btn btn-theme btn-lg">NEXT</button>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+{% endblock content %}

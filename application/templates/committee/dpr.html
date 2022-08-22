@@ -1,0 +1,434 @@
+{% extends "committee/layout.html" %}
+{% block content %}
+<section style="padding-left:18%;padding-right:2%;">
+    <h3 class="h4 font-weight-bold text-theme"
+      style="text-align:center;padding-right: 17%;padding-top:30px;padding-bottom:30px;">Detailed Project Report</h3>
+    <!-- Problem statement view -->
+    <!-- <div class="table-responsive text-nowrap"> -->
+    <!--Table-->
+    <table class="table table-striped">
+
+      <!--Table head-->
+      <thead>
+        <tr style="text-align:center;background-color:orange;">
+          <th>S.no</th>
+          <th>Value</th>
+          <th>Field</th>
+          <th>Marks</th>
+        </tr>
+      </thead>
+      <!--Table head-->
+
+      <!--Table body-->
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Name of the applicant organization</td>
+          <td>{{p.name}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Email</td>
+          <td>{{p.email}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Phone Number</td>
+          <td>{{p.phone}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>Grantee address Line 1</td>
+          <td>{{p.add1}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>Grantee address Line 2</td>
+          <td>{{p.add2}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">6</th>
+          <td>State</td>
+          <td>{{p.state}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">7</th>
+          <td>Pincode</td>
+          <td>{{p.pincode}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">8</th>
+          <td>Name of the project</td>
+          <td>{{q.name}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">9</th>
+          <td>Project ID</td>
+          <td>{{q.id}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">10</th>
+          <td>Address of the location line 1</td>
+          <td>{{q.add1}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">11</th>
+          <td>Address of the location line 2</td>
+          <td>{{q.add2}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">12</th>
+          <td>Nearest Mode of Transportation</td>
+          <td>{{q.mot}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">13</th>
+          <td>Name of the nearest mode of transport</td>
+          <td>{{q.mot_name}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">14</th>
+          <td>Address of the selected transport line 1</td>
+          <td>{{q.mot_add1}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">15</th>
+          <td>Address of the selected transport line 2</td>
+          <td>{{q.mot_add2}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">16</th>
+          <td>Distance between the location and the selected mode of transport</td>
+          <td>{{q.distance}} </td>
+          <td>{{q.m1}}></td>
+        </tr>
+        <tr>
+          <th scope="row">17</th>
+          <td>Area of the Land(in sq ft)</td>
+          <td>{{q.area}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">18</th>
+          <td>Classification of Project</td>
+          <td>{{q.class}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">19</th>
+          <td>Type of Land</td>
+          {% if q.type == "Others" %}
+          <td>{{q.other_type}}</td>
+          {% else %}
+          <td>{{q.type}}</td>
+          {% endif %}
+          <td>{{q.m2}}</td>
+        </tr>
+        <tr>
+          <th scope="row">20</th>
+          <td>Land Ownership</td>
+          <td>{{q.ownership}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">21</th>
+          <td>Is the land readily available for executing the project?</td>
+          <td>{{q.availability}}</td>
+          <td>{{q.m4}}</td>
+        </tr>
+        <tr>
+          <th scope="row">22</th>
+          <td>Utilities Provided</td>
+          <td>{{q.utilities}}</td>
+          <td>{{q.m5}}></td>
+        </tr>
+        <tr>
+          <th scope="row">23</th>
+          <td>Category of the infrastructure</td>
+          {% if q.category == "Others" %}
+          <td>{{q.other_cat}}</td>
+          {% else %}
+          <td>{{q.category}}</td>
+          {% endif %}
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">24</th>
+          <td>Ancillary Facilities</td>
+          <td>{{q.ancillary}}</td>
+          <td>{{q.m6}}</td>
+        </tr>
+        <tr>
+          <th scope="row">25</th>
+          <td>Estimated cost of the Project</td>
+          <td>{{q.cost}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">26</th>
+          <td>Centre's Share</td>
+          <td>{{q.share}}</td>
+          <td>{{q.m8}}</td>
+        </tr>
+        <tr>
+          <th scope="row">27</th>
+          <td>Does the project enforce any innovative and creative methods for reducing cost and implementation
+            period?</td>
+          <td>{{r.inc}}</td>
+          <td>{{r.m3}}</td>
+        </tr>
+        <tr>
+          <th scope="row">28</th>
+          <td>Available Sports Infrastructure</td>
+          <td>{{r.asi}}</td>
+          <td>{{r.m7}}</td>
+        </tr>
+        <tr>
+          <th scope="row">29</th>
+          <td>Number of centres for training of National level Players</td>
+          <td>{{r.noc}}</td>
+          <td>{{r.m8}}</td>
+        </tr>
+        <tr>
+          <th scope="row">30</th>
+          <td>Number of National and International level players from the State in disciplines included in the Asian
+            Games/Common Wealth Games/Olympics</td>
+          <td>{{r.nop}}</td>
+          <td>{{r.m9}}</td>
+        </tr>
+        <tr>
+          <th scope="row">31</th>
+          <td>User Base</td>
+          <td>{{r.ub}}</td>
+          <td>{{r.m10}}</td>
+        </tr>
+        <tr>
+          <th scope="row">32</th>
+          <td>Has the area in which the project is proposed experienced any natural disasters?</td>
+          <td>{{s.nd}}</td>
+          <td>{{s.m2}}</td>
+        </tr>
+        <tr>
+          <th scope="row">33</th>
+          <td>Has the area in which the project is proposed experienced strong demand for proposed sports facilities
+            due to popularity of the sports discipline?</td>
+          <td>{{s.demand}}</td>
+          <td>{{s.m3}}</td>
+        </tr>
+        <tr>
+          <th scope="row">34</th>
+          <td>Has the area in which the project is proposed experienced strong population growth or significant change
+            in circumstances?</td>
+          <td>{{s.pg}}</td>
+          <td>{{s.m4}}</td>
+        </tr>
+        <tr>
+          <th scope="row">35</th>
+          <td>Has any additional programming opputunities has been identified and planned to increase or maintain
+            participation?</td>
+          <td>{{s.apo}}</td>
+          <td>{{s.m6}}</td>
+        </tr>
+        <tr>
+          <th scope="row">36</th>
+          <td>Has the organization implemented previous projects funded by the Government of India, Department of
+            Sports?</td>
+          <td>{{t.prev}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">37</th>
+          <td>Does the organization have overdue projects funded by the Government of India, Department of Sports?
+          </td>
+          <td>{{t.od}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">38</th>
+          <td>Does the organization have successfully completed projects funded by the Government of India, Department
+            of Sports?</td>
+          <td>{{t.comp}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">39</th>
+          <td>Date and Time of Project Submission</td>
+          <td>{{t.sub_time}}</td>
+          <td></td>
+        </tr>
+      </tbody>
+      <!--Table body-->
+
+    </table>
+    <!--Table-->
+
+    <br>
+    <!-- Documents table -->
+    <table class="table table-striped">
+  
+      <!--Table head-->
+      <thead>
+        <tr style="text-align:center;background-color:orange;">
+          <th>S.no</th>
+          <th>Document Parameters/Specifications</th>
+          <th>Document</th>
+          <th>Marks</th>
+        </tr>
+      </thead>
+      <!--Table head-->
+  
+      <!--Table body-->
+      <tbody style="text-align:center;">
+        <tr>
+          <th scope="row">1</th>
+          <td>Evidence of Land Ownership</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Supporting certificate that the land is developed and ready for execution</td>
+          <td></td>
+          <td>{{q.m3}}</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Evidence of project costing, quotations</td>
+          <td></td>
+          <td>{{q.m7}}</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>Evidence of how the difference between the centre's share and estimated project cost will be met</td>
+          <td></td>
+          <td>{{q.m8}}</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>Key Milestones with timelines</td>
+          <td></td>
+          <td>{{q.m9}}</td>
+        </tr>
+        <tr>
+          <th scope="row">6</th>
+          <td>Project scope, methodology and how proposed outcomes will be completed within a prescribed timeframe</td>
+          <td></td>
+          <td>{{r.m1}}</td>
+        </tr>
+        <tr>
+          <th scope="row">7</th>
+          <td>How the site specific schematic plans address site considerations, safety, risk management, Universal
+            Design Principals, Environmentally Sustainable Designs</td>
+          <td></td>
+          <td>{{r.m2}}</td>
+        </tr>
+        <tr>
+          <th scope="row">8</th>
+          <td>How the prescribed innovative and creative methods reducing the cost and implementation period of the
+            project</td>
+          <td></td>
+          <td>{{r.m3}}</td>
+        </tr>
+        <tr>
+          <th scope="row">9</th>
+          <td>Fast track single window for clearances (including environment & forest</td>
+          <td></td>
+          <td>{{r.m4}}</td>
+        </tr>
+        <tr>
+          <th scope="row">10</th>
+          <td>Facility Management & utilisation plan which addresses operational and financial sustainability</td>
+          <td></td>
+          <td>{{r.m5}}</td>
+        </tr>
+        <tr>
+          <th scope="row">11</th>
+          <td>How the project demonstrate economic impact during construction and operation, including employment during
+            and after construction</td>
+          <td></td>
+          <td>{{r.m6}}</td>
+        </tr>
+        <tr>
+          <th scope="row">12</th>
+          <td>How can the additional sports infrastructure be integrated with the proposed project</td>
+          <td></td>
+          <td>{{r.m7}}</td>
+        </tr>
+        <tr>
+          <th scope="row">13</th>
+          <td>Why this project is required and how it responds to identified community needs, issues and helps bridge
+            critical gaps in sports facilities in the vicinity of the project</td>
+          <td></td>
+          <td>{{s.m1}}</td>
+        </tr>
+        <tr>
+          <th scope="row">14</th>
+          <td>How the project proposes to increase (or in certain cases maintain) participation in
+            sports and/or helps athletes achieve excellence. Estimated figures (with basis of
+            estimation) and also clearly state how each partner/stakeholder will contribute to and
+            benefit from the project</td>
+          <td></td>
+          <td>{{s.m5}}</td>
+        </tr>
+        <tr>
+          <th scope="row">15</th>
+          <td>Regional/sub-regional and multi-purpose benefits of the project and how it is
+            aligned to the National goal of broadbasing of sports and achieving excellence in
+            sports</td>
+          <td></td>
+          <td>{{s.m7}}</td>
+        </tr>
+        <tr>
+          <th scope="row">16</th>
+          <td>How the project or the broader facility promotes gender equity and inclusiveness
+            through policies and facility management plans</td>
+          <td></td>
+          <td>{{s.m8}}</td>
+        </tr>
+        <tr>
+          <th scope="row">17</th>
+          <td>Post execution maintanence plan for the project including source of funds for maintanence, etc.</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">18</th>
+          <td>Drawings and Designs prepared by the executing agency</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">19</th>
+          <td>Requisite utilisation certificate of projects successfully completed projects funded by the Government of
+            India, Department of Sports</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <th scope="row">20</th>
+        <td>Physical and Financial Progress of projects successfully completed projects funded by the Government of
+          India, Department of Sports</td>
+        <td></td>
+        <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- end of documents table -->
+
+    <br><br>
+  </section>
+{% endblock %}

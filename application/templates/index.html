@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head>
+      <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <title>Khelo Hindustan</title>
+
+      <meta content="" name="description">
+      <meta content="" name="keywords">
+
+      <link href="" rel="icon">
+      <link href="" rel="apple-touch-icon">
+
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+      
+      <link href="{{ url_for('static', filename='vendor/aos/aos.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+      
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   </head>
+
+   <body>
+
+      <!-- ======= Header ======= -->
+      <header id="header" class="fixed-top d-flex align-items-center">
+         <div class="container d-flex align-items-center justify-content-between" style="margin-top: -20px;">
+            <div class="logo">
+               <!--<h1><a href="index.html">Connectio</a></h1>-->
+               <a href="index.html"><img src="static/images/logo.png" style="width: 100px; height:50px; margin-top:8px; margin-left:0px;"></a>
+            </div>
+            <nav id="navbar" class="navbar">
+               <ul>
+                  <li><a class="nav-link scrollto" href="#about">About</a></li>
+                  <li><a class="nav-link scrollto" href="#contact">Contact Us</a></li>
+                  <li><a class="nav-link scrollto " href="{{ url_for('register') }}">Sign up</a></li>
+                  <li><a class="nav-link scrollto" href="{{ url_for('login') }}">Log in</a></li>
+               </ul>
+               <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+            <!-- .navbar -->
+         </div>
+      </header>
+      <!-- End Header -->
+
+      <!-- ======= Hero Section ======= -->
+      <section id="hero" class="d-flex align-items-center">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                  <h1 data-aos="fade-up">KHEL HINDUSTAN</h1>
+                  <h2 data-aos="fade-up" data-aos-delay="400">Making India Play !</h2>
+                  <div data-aos="fade-up" data-aos-delay="800">
+                     <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                  </div>
+               </div>
+               <div class="col-lg-6 order-1 order-lg-3 hero-img" data-aos="fade-left" data-aos-delay="300">
+                  <img src="static/images/hero-bg.jpg" class="img-fluid animated" alt="">
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- End Hero -->
+
+      <br><br><br><br><br>
+
+      <main id="main">
+
+         <!-- ======= About Us Section ======= -->
+         <section id="about" class="about" style="background-color: #ff9933;">
+            <div class="container" style="padding-top: 50px;">
+               <div class="section-title" data-aos="fade-up">
+                  <h2>About Khelo India</h2>
+               </div>
+               <div class="row content">
+                  <div class="col-lg" data-aos="fade-up" data-aos-delay="150">
+                     <p>
+                        The importance of sports and fitness in one’s life is invaluable. Playing sports inculcates team spirit, develops strategic & analytical thinking, leadership skills, goal setting and risk taking. A fit and healthy individual leads to an equally healthy society and strong nation.
+                     </p>
+                     <p>
+                        Sports is an extremely important component for the overall development of our nation. India, in the last few years has made steady progress in the field of sports. This tremendous potential needs to be showcased at a global platform. It’s time we inspire young talent, give them top-notch infrastructure and training of the highest level. We need to inculcate a strong spirit of participation in sports that enables players to demonstrate their true potential. Only then can India realise its dream of becoming a sports super power.
+                     </p>
+                     <p>
+                        The Khelo India programme has been introduced to revive the sports culture in India at the grass-root level by building a strong framework for all sports played in our country and establish India as a great sporting nation.
+                     </p>
+                     <p>
+                        Talented players identified in priority sports disciplines at various levels by the High-Powered Committee will be provided annual financial assistance of INR 5 lakh per annum for 8 years.
+                     </p>
+                     <p>
+                        Khelo India School Games, which are a part of the Khelo India programme, are being held from 31st January to 8th February, 2018 in New Delhi. Under-17 athletes have been invited to participate across 16 disciplines, which are as follows: Archery, Athletics, Badminton, Basketball, Boxing, Football, Gymnastics, Hockey, Judo, Kabaddi, Kho-Kho, Shooting, Swimming, Volleyball, Weightlifting, and Wrestling.
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- End About Us Section -->
+
+         <br>
+
+         <!-- ======= Counts Section ======= -->
+         <section id="counts" class="counts" style="height:720px;">
+            <div class="container">
+            <h1 style="font-size: 30px; margin-left: 20%; text-align: center; padding-top: 5%; margin-left: 3%;" data-aos="fade-up" data-aos-delay="150">MOTIVE OF KHELO INDIA SCHEME</h1>
+            <div class="row">
+               <div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-xl-start" data-aos="fade-right" data-aos-delay="150">
+                  <!-- <h1 style="font-size: 50px;margin-left: 10%;padding-left: 10%;margin-top: 10%;">MOTIVE OF KHELO INDIA SCHEME</h1>  -->
+                  <img src="static/images/objectives.png" alt="" class="hero-img"  style="margin-left:25%; width:200%; height:100%; image-orientation: from-image;">
+               </div>
+            </div>
+         </section>
+         <!-- End Counts Section -->
+
+         <br>
+
+         <!-- ======= Contact Section ======= -->
+         <section id="contact" class="contact">
+            <div class="container">
+            <div class="section-title" data-aos="fade-up">
+               <h2>Contact</h2>
+               <!-- <p>for further details</p> -->
+               <br>
+               <div class="row d-flex justify-content-center">
+                  <div class="image col-xl-4 d-flex  justify-content-center justify-content-xl-start" data-aos="fade-right" data-aos-delay="150">
+                     <img src="static/images/mail.png" alt="" style="height:70%; padding-right: 70px;" >
+                  </div>
+                  <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="300">
+                     <form action="" method="POST" class="php-email-form">
+                        <div class="form-group">
+                           <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                           <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                           <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                           <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                        </div>
+                        <div class="text-center"><button type="submit">Send Message</button></div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- End Contact Section -->
+
+      </main>
+      <!-- End #main -->
+
+      <!-- ======= Footer ======= -->
+      <footer id="footer">
+         <div class="container">
+            <div class="row d-flex justify-content-center">
+               <div class="col-lg-6 text-lg-left text-center">
+                  <div class="copyright">
+                     <strong>Developed at Smart India Hackathon - 2022</strong>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- End Footer -->
+
+      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+      <!-- Vendor JS Files -->
+      <script src="static/vendor/purecounter/purecounter.js"></script>
+      <script src="static/vendor/aos/aos.js"></script>
+      <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="static/vendor/glightbox/js/glightbox.min.js"></script>
+      <script src="static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+      <script src="static/vendor/swiper/swiper-bundle.min.js"></script>
+      <script src="static/vendor/php-email-form/validate.js"></script>
+
+      <!-- Template Main JS File -->
+      <script src="static/js/main.js"></script>
+   </body>
+</html>
