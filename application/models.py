@@ -1,8 +1,7 @@
 from datetime import datetime
-from email.policy import default
-from enum import unique
-from application import db , login_manager
+from application import db , login_manager, app
 from flask_login import UserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 #Login function
 @login_manager.user_loader
@@ -23,12 +22,28 @@ class User(db.Model,UserMixin):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     permission = db.Column(db.Boolean, default=False, nullable=False)
 
+    def get_reset_token(self,expires_sec=180000):
+        s = Serializer(app.config['SECRET_KEY'],expires_sec)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+
+
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token)['user_id']
+        except:
+            return None
+        return User.query.get(user_id)
+
+
+
     def __repr__(self):
          return f"User('{self.name}', '{self.email}', '{self.role}', '{self.permission}')"
 
 class Form_1(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    pname = db.Column(db.String(25), nullable=False)
+    name = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(25), nullable=False)
     add1 = db.Column(db.String(25), nullable=False)
     add2 = db.Column(db.String(25), nullable=False)
@@ -38,6 +53,8 @@ class Form_1(db.Model):
 
     def _repr_(self) -> str:
         return f"Form_1('{self.id} - {self.name}')"
+
+    
     
 class Form_2(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -71,6 +88,17 @@ class Form_2(db.Model):
     m8 = db.Column(db.Integer)
     m9 = db.Column(db.Integer)
     tot = db.Column(db.Integer)
+    user_id = db.Column(db.Integer)
+
+    #form
+
+    land_proof = db.Column(db.String,nullable=False)
+    land_certificate = db.Column(db.String,nullable=False)
+    boq = db.Column(db.String,nullable=False)
+    difference = db.Column(db.String,nullable=False)
+    milestones = db.Column(db.String,nullable=False)
+
+
     
     def _repr_(self) -> str:
         return f"Form_2('{self.id} - {self.name}')"
@@ -94,6 +122,15 @@ class Form_3(db.Model):
     m10 = db.Column(db.Integer)
     tot = db.Column(db.Integer)
 
+    #Form
+    scope = db.Column(db.String,nullable=False)
+    schematic_plan = db.Column(db.String,nullable=False)
+    proposed_method = db.Column(db.String,nullable=False)
+    fastrack = db.Column(db.String,nullable=False)
+    utilization_plan = db.Column(db.String,nullable=False)
+    economic_plan = db.Column(db.String,nullable=False)
+    integration = db.Column(db.String,nullable=False)
+
 
 class Form_4(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -111,6 +148,15 @@ class Form_4(db.Model):
     m8 = db.Column(db.Integer)
     tot = db.Column(db.Integer)
 
+    #Form
+
+    need = db.Column(db.String,nullable=False)
+    excellence = db.Column(db.String,nullable=False)
+    estimation = db.Column(db.String,nullable=False)
+    benefits = db.Column(db.String,nullable=False)
+    equity = db.Column(db.String,nullable=False)
+
+
 
 class Form_5(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -118,4 +164,14 @@ class Form_5(db.Model):
     od = db.Column(db.String(3), nullable = False) #overdue projects
     comp = db.Column(db.String(3), nullable = False) #completed projects
     sub_time = db.Column(db.DateTime, default=datetime.utcnow)
+
+    #Form
+
+    maintanence = db.Column(db.String,nullable=False)
+    design = db.Column(db.String,nullable=False)
+    u_certificate = db.Column(db.String,nullable=False)
+    details = db.Column(db.String,nullable=False)
+    proof = db.Column(db.String,nullable=False)
+
+
 

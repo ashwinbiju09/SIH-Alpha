@@ -24,7 +24,7 @@
                </a>
             </li>
             <li>
-               <a href="{{ url_for('existing_applications') }}">
+               <a href="{{ url_for('existing_applications', no=current_user.id) }}">
                <i class='bx bx-grid-alt' ></i>
                <span class="links_name">Submitted Application</span>
                </a> 

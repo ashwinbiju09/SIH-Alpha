@@ -66,6 +66,7 @@
             </tr>
          </thead>
          <tbody>
+            {% set i = 0 %}
             {% for project in p %}
             <tr>
                <td>{{ project.id }}</td>
@@ -96,6 +97,7 @@
                         class="btn btn-danger"> Reject </button></form>
                </td>
             </tr>
+
             {% endfor %}
          </tbody>
       </table>

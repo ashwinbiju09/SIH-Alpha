@@ -1,18 +1,20 @@
-from application import UPLOAD_FOLDER, app, db, bcrypt
-from flask import render_template, redirect, url_for, request, flash
+from application import UPLOAD_FOLDER, app, db, bcrypt, mail
+from flask import render_template, redirect, url_for, request, flash, send_from_directory, current_app
 from application.models import User, Form_1, Form_2, Form_3, Form_4,Form_5
+from flask_mail import Message
 from flask_login import login_required, login_user, logout_user, current_user
 from werkzeug.utils import secure_filename
 import os
 
 UPLOAD_FOLDER = "E:/SIH v2/application/media/user_documents/"
 
+# APP_URL = 'http://127.0.0.1:5000'
 
 def createFolder(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER + request.form['name'])
 
-def createFolder(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER + request.form['name'])
+ACCESS_FOLDER = "E:/SIH v2/application/media/user_documents/"
+
     
 #Home route
 @app.route("/")
@@ -78,12 +80,47 @@ def login():
     return render_template('login.html')
 
 
-#Logout route
+#Logout routes
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request', sender='noreply@khelhindustan.com', recipients=[user.email])
+    # msg.html = f'''To reset your password, visit the following link: <a href="{url_for('reset_token', token=token, _external=True)}"> Click Here </a>
+    #If you did not make this request then simply ignore this email and no changes will be made.'''
+    
+    msg.html = f''' To reset your password go to the following link : <a href="{ current_app.config['APP_URL'] }{ url_for('reset_token', token=token, external=True) }"> Click here </a> '''
+    mail.send(msg)
+
+#password routes
+@app.route('/reset_request',methods=['POST','GET'])
+def reset_request():
+    if request.method == "POST":
+        email = request.form['email']
+        user = User.query.filter_by(email=email).first()
+        send_reset_email(user)
+        return redirect(url_for('login'))
+    return render_template('forgot.html')
+
+
+@app.route('/reset_token/<token>',methods=['POST','GET'])
+def reset_token(token):
+
+    user = User.verify_reset_token(token)
+
+    if request.method == 'GET' :
+    #     password = request.form['password']
+
+    #         #Hasing Password
+    #     hashed_pwd = bcrypt.generate_password_hash(password).decode('utf-8')
+    #     user.password = hashed_pwd
+    #     db.session.commit()
+        return redirect(url_for('login'))
+
+    return render_template('reset.html')
 
 #User routes based on role
 @app.route("/proponent")
@@ -125,15 +162,14 @@ def application():
     return render_template('/proponent/terms.html')
 
 
-@app.route("/existing_applications",methods=['POST','GET'])
+@app.route("/<int:no>/existing_applications",methods=['POST','GET'])
 @login_required
-def existing_applications():
+def existing_applications(no):
     if not current_user.role == "Proponent":
         return redirect(url_for('error'))
     if request.method == "POST":
         return redirect(url_for('dpr/<int:id>'))
-    allq = Form_2.query.all()
-    print(allq)
+    allq = Form_2.query.filter_by(user_id=no)
     return render_template('/proponent/existing_applications.html',allq=allq)
 
 @app.route("/status")
@@ -234,48 +270,45 @@ def form_2():
         share = request.form['share']
 
         #Snippet to input file and store in local directory
-        file = request.files['land_proof']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - land_proof.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        land_proof = request.files['land_proof']
+        land_proof_rename = "{}_land_proof.pdf".format(current_user.id)
+        land_proof.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(land_proof_rename)))
 
-        file = request.files['land_certificate']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - land_certificate.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        land_certificate = request.files['land_certificate']
+        land_certificate_rename = "{}_land_certificate.pdf".format(current_user.id)
+        land_certificate.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(land_certificate_rename)))
 
-        file = request.files['boq']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - boq.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
 
-        file = request.files['difference']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - difference.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        boq = request.files['boq']
+        boq_rename = "{}_boq.pdf".format(current_user.id)
+        boq.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(boq_rename)))
 
-        file = request.files['milestones']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - milestones.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+
+        difference = request.files['difference']
+        difference_rename = "{}_difference.pdf".format(current_user.id)
+        difference.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(difference_rename)))
+
+
+        milestones = request.files['milestones']
+        milestones_rename = "{}_milestones.pdf".format(current_user.id)
+        milestones.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(milestones_rename)))
+
 
         #DB commits
-        form_2 = Form_2(name=name, add1=add1, add2=add2, mot=mot, mot_name=mot_name, mot_add1=mot_add1, mot_add2=mot_add2, distance=distance, area=area, cop=cop, type=type, other_type=other_type, ownership=ownership, availability=availability, utilities=utilities, category=category, other_cat=other_cat, ancillary=ancillary, cost=cost, share=share)
+        form_2 = Form_2(name=name, add1=add1, add2=add2, mot=mot, mot_name=mot_name, mot_add1=mot_add1, mot_add2=mot_add2, distance=distance, area=area, 
+        cop=cop, type=type, other_type=other_type, ownership=ownership, availability=availability, utilities=utilities, category=category, other_cat=other_cat, 
+        ancillary=ancillary, cost=cost, share=share, user_id=current_user.id,land_proof=land_proof_rename, land_certificate=land_certificate_rename, boq=boq_rename, difference=difference_rename, milestones=milestones_rename )
         db.session.add(form_2)
         db.session.commit()
         return redirect(url_for('form_3'))
     f2 = Form_2.query.all()
-    print(f2)
     return render_template('/proponent/form_2.html',f2=f2)
 
 @app.route("/form_3",methods=['POST','GET'])
 @login_required
 def form_3():
+
+
     if not current_user.role == "Proponent":
         return redirect(url_for('error'))
     if request.method == 'POST' :
@@ -289,60 +322,46 @@ def form_3():
 
 
         #Snippet to input file and store in local directory
-        file = request.files['scope']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - scope.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        scope = request.files['scope']
+        scope_rename = "{}_scope.pdf".format(current_user.id)
+        scope.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(scope_rename)))
 
-        file = request.files['schematic_plan']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - schematic_plan.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        schematic_plan = request.files['schematic_plan']
+        schematic_plan_rename = "{}_schematic_plan.pdf".format(current_user.id)
+        schematic_plan.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(schematic_plan_rename)))
 
-        file = request.files['proposed_method']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - proposed_method.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        proposed_method = request.files['proposed_method']
+        proposed_method_rename = "{}_proposed_method.pdf".format(current_user.id)
+        proposed_method.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(proposed_method_rename)))
 
-        file = request.files['fastrack']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - fastrack.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        fastrack = request.files['fastrack']
+        fastrack_rename = "{}_fastrack.pdf".format(current_user.id)
+        fastrack.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(fastrack_rename)))
 
-        file = request.files['utilization_plan']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - utilization_plan.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        utilization_plan = request.files['utilization_plan']
+        utilization_plan_rename = "{}_utilization_plan.pdf".format(current_user.id)
+        utilization_plan.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(utilization_plan_rename)))
 
-        file = request.files['economic_impact']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - economic_impact.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        economic_plan = request.files['economic_impact']
+        economic_plan_rename = "{}_economic_plan.pdf".format(current_user.id)
+        economic_plan.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(economic_plan_rename)))
 
-        file = request.files['integration']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - integration.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        integration = request.files['integration']
+        integration_rename = "{}_integration.pdf".format(current_user.id)
+        integration.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(integration_rename)))
 
         #DB commits
-        form_3 = Form_3(inc=inc, asi=asi, noc=noc, nop=nop, ub=ub)
+        form_3 = Form_3(inc=inc, asi=asi, noc=noc, nop=nop, ub=ub, scope=scope_rename, schematic_plan=schematic_plan_rename, proposed_method=proposed_method_rename, fastrack=fastrack_rename, utilization_plan=utilization_plan_rename, economic_plan=economic_plan_rename, integration=integration_rename, )
         db.session.add(form_3)
         db.session.commit()
         return redirect(url_for('form_4'))
     f3 = Form_3.query.all()
-    print(f3)
-    return render_template('/proponent/form_3.html',f3=f3)
+    return render_template('/proponent/form_3.html', f3=f3)
 
 @app.route("/form_4",methods=['POST','GET'])
 @login_required
 def form_4():
+
     if not current_user.role == "Proponent":
         return redirect(url_for('error'))
     if request.method == 'POST' :
@@ -354,48 +373,41 @@ def form_4():
         apo = request.form['apo']
 
         #Snippet to input file and store in local directory
-        file = request.files['need']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - need.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        need = request.files['need']
+        need_rename = "{}_need.pdf".format(current_user.id)
+        need.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(need_rename)))
 
-        file = request.files['excellence']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - excellence.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        excellence = request.files['excellence']
+        excellence_rename = "{}_excellence.pdf".format(current_user.id)
+        excellence.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(excellence_rename)))
 
-        file = request.files['estimation']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - estimation.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        estimation = request.files['estimation']
+        estimation_rename = "{}_estimation.pdf".format(current_user.id)
+        estimation.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(estimation_rename)))
 
-        file = request.files['benefits']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - benefits.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        benefits = request.files['benefits']
+        benefits_rename = "{}_benefits.pdf".format(current_user.id)
+        benefits.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(benefits_rename)))
 
-        file = request.files['equity']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - equity.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        equity = request.files['equity']
+        equity_rename = "{}_equity.pdf".format(current_user.id)
+        equity.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(equity_rename)))
 
         #DB commits
-        form_4 = Form_4(nd=nd, demand=demand, pg=pg, apo=apo)
+        form_4 = Form_4(nd=nd, demand=demand, pg=pg, apo=apo, need=need_rename, excellence=excellence_rename, estimation=estimation_rename, equity=equity_rename,benefits=benefits_rename)
         db.session.add(form_4)
         db.session.commit()
+
         return redirect(url_for('form_5'))
     f4 = Form_4.query.all()
-    print(f4)
     return render_template('/proponent/form_4.html',f4=f4)
 
 @app.route("/form_5",methods=['POST','GET'])
 @login_required
 def form_5():
+
+    f2 = Form_2.query.all()
+
     if not current_user.role == "Proponent":
         return redirect(url_for('error'))
     if request.method == 'POST' :
@@ -406,45 +418,32 @@ def form_5():
         comp = request.form['comp']
 
         #Snippet to input file and store in local directory
-        file = request.files['maintanence']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - maintanence.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        maintanence = request.files['maintanence']
+        maintanence_rename = "{}_maintanence.pdf".format(current_user.id)
+        maintanence.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(maintanence_rename)))
 
-        file = request.files['design']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - design.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        design = request.files['design']
+        design_rename = "{}_design.pdf".format(current_user.id)
+        design.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(design_rename)))
 
-        file = request.files['u-certificate']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - u-certificate.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        u_certificate = request.files['u_certificate']
+        u_certificate_rename = "{}_u_certificate.pdf".format(current_user.id)
+        u_certificate.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(u_certificate_rename)))
 
-        file = request.files['details']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - details.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
+        details = request.files['details']
+        details_rename = "{}_details.pdf".format(current_user.id)
+        details.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(details_rename)))
 
-        file = request.files['proof']
-        if file.filename == '':
-            flash('No selected file')
-        filename = current_user.name + " - proof.pdf"
-        file.save(os.path.join('E:/SIH v2/application/media/user_documents/' + current_user.name, filename))
-
-
+        proof = request.files['proof']
+        proof_rename = "{}_proof.pdf".format(current_user.id)
+        proof.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(proof_rename)))
 
         #DB commits
-        form_5 = Form_5(prev=prev, od=od, comp=comp)
+        form_5 = Form_5(prev=prev, od=od, comp=comp, maintanence=maintanence_rename, design=design_rename, u_certificate=u_certificate_rename, details=details_rename, proof=proof_rename)
         db.session.add(form_5)
         db.session.commit()
-        return redirect(url_for('existing_applications'))
+        return redirect("/"+str(current_user.id)+"/existing_applications")
     f5 = Form_5.query.all()
-    print(f5)
     return render_template('/proponent/form_5.html',f5=f5)
 
 @app.route('/delete/<int:id>')
@@ -513,17 +512,33 @@ def cdpr_marks(id):
                 q.m1 = request.form['qm1']
             if request.form['qm2']:
                 q.m2 = request.form['qm2']
+            if request.form['qm3']:
+                q.m3 = request.form['qm3']
             if request.form['qm4']:
                 q.m4 = request.form['qm4']
             if request.form['qm5']:
                 q.m5 = request.form['qm5']
             if request.form['qm6']:
                 q.m6 = request.form['qm6']
+            if request.form['qm7']:
+                q.m7 = request.form['qm7']
             if request.form['qm8']:
                 q.m8 = request.form['qm8']
+            if request.form['qm9']:
+                q.m9 = request.form['qm9']
 
+            if request.form['rm1']:
+                r.m1 = request.form['rm1']
+            if request.form['rm2']:
+                r.m2 = request.form['rm2']
             if request.form['rm3']:
                 r.m3 = request.form['rm3']
+            if request.form['rm4']:
+                r.m4 = request.form['rm4']
+            if request.form['rm5']:
+                r.m5 = request.form['rm5']
+            if request.form['rm6']:
+                r.m6 = request.form['rm6']
             if request.form['rm7']:
                 r.m7 = request.form['rm7']
             if request.form['rm8']:
@@ -632,3 +647,14 @@ def dpr_admin(id):
 
         return render_template("/admin/dpr.html",p=p,q=q,r=r,s=s,t=t)
 
+
+@app.route("/land_proof",methods=['GET','POST'])
+@login_required
+def land_proof():
+    if not current_user.role == "Proponent":
+        return redirect(url_for('error'))
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    print(path)
+    return send_from_directory(path, str(current_user.id)+'_land_proof.pdf')
+    
