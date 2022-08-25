@@ -1,0 +1,98 @@
+{% extends "committee/layout.html" %}
+{% block content %}
+<section style="padding-left:16%; padding-top:2%; padding-right:1%"></section>
+<h3 class="h4 font-weight-bold text-theme" style="text-align:center;">Rejected Projects</h3>
+<div class="col-md-9"></div>
+   <div class="col-md-3 " style="offset:20px; margin-left: 20%;">
+      <br>
+      <p><b>Select State</b></p>
+      <select name="filter_state" id="inputState" style="background-color: rgb(255, 255, 255);"
+         onchange="location = this.value;" class="form-control form-control-md">
+         <option>Select State</option>
+         <option value="/filter_projects_ad/rejected/Andra Pradesh">Andra Pradesh</option>
+         <option value="/filter_projects_ad/rejected/Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+         <option value="/filter_projects_ad/rejected/Arunachal Pradesh">Arunachal Pradesh</option>
+         <option value="/filter_projects_ad/rejected/Assam">Assam</option>
+         <option value="/filter_projects_ad/rejected/Bihar">Bihar</option>
+         <option value="/filter_projects_ad/rejected/Chhattisgarh">Chhattisgarh</option>
+         <option value="/filter_projects_ad/rejected/Chandigarh">Chandigarh</option>
+         <option value="/filter_projects_ad/rejected/Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+         <option value="/filter_projects_ad/rejected/Daman and Diu">Daman and Diu</option>
+         <option value="/filter_projects_ad/rejected/Delhi">Delhi</option>
+         <option value="/filter_projects_ad/rejected/Goa">Goa</option>
+         <option value="/filter_projects_ad/rejected/Gujarat">Gujarat</option>
+         <option value="/filter_projects_ad/rejected/Haryana">Haryana</option>
+         <option value="/filter_projects_ad/rejected/Himachal Pradesh">Himachal Pradesh</option>
+         <option value="/filter_projects_ad/rejected/Jammu and Kashmir">Jammu and Kashmir</option>
+         <option value="/filter_projects_ad/rejected/Jharkhand">Jharkhand</option>
+         <option value="/filter_projects_ad/rejected/Karnataka">Karnataka</option>
+         <option value="/filter_projects_ad/rejected/Kerala">Kerala</option>
+         <option value="/filter_projects_ad/rejected/Lakshadeep">Lakshadeep</option>
+         <option value="/filter_projects_ad/rejected/Madya Pradesh">Madya Pradesh</option>
+         <option value="/filter_projects_ad/rejected/Maharashtra">Maharashtra</option>
+         <option value="/filter_projects_ad/rejected/Manipur">Manipur</option>
+         <option value="/filter_projects_ad/rejected/Meghalaya">Meghalaya</option>
+         <option value="/filter_projects_ad/rejected/Mizoram">Mizoram</option>
+         <option value="/filter_projects_ad/rejected/Nagaland">Nagaland</option>
+         <option value="/filter_projects_ad/rejected/Orissa">Orissa</option>
+         <option value="/filter_projects_ad/rejected/Punjab">Punjab</option>
+         <option value="/filter_projects_ad/rejected/Pondicherry">Pondicherry</option>
+         <option value="/filter_projects_ad/rejected/Rajasthan">Rajasthan</option>
+         <option value="/filter_projects_ad/rejected/Sikkim">Sikkim</option>
+         <option value="/filter_projects_ad/rejected/Tamil Nadu">Tamil Nadu</option>
+         <option value="/filter_projects_ad/rejected/Telagana">Telagana</option>
+         <option value="/filter_projects_ad/rejected/Tripura">Tripura</option>
+         <option value="/filter_projects_ad/rejected/Uttaranchal">Uttaranchal</option>
+         <option value="/filter_projects_ad/rejected/Uttar Pradesh">Uttar Pradesh</option>
+         <option value="/filter_projects_ad/rejected/West Bengal">West Bengal</option>
+      </select>
+
+   </div>
+</section>
+{% if p|length == 0 %}
+<div class="table-responsive text-nowrap"></div>
+<div style="max-width: 2000px; margin-left: 20%; margin-right:5% ;" class="alert alert-primary d-flex align-items-center mt-3" role="alert">
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:" >
+        <path
+            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </svg>
+    <div >
+        No applications.
+    </div>
+
+</div>
+</div>
+{% else %}
+{% for project in p %}
+<section style="padding-left:16%; padding-top:2%; padding-right:1%">
+    <br>
+    <div class="col-md-9"></div>
+<div class="table-responsive text-nowrap">
+    <table class="table table-striped">
+        <thead>
+            <tr style="background-color: #F08B14;font-family: sans-serif;text-align: center;">
+                <th>PROJECT ID</th>
+               <th>PROJECT NAME</th>
+               <th>PROJECT LOCATION</th>
+               <th>TOTAL</th>
+               <th>STATUS</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>{{ project.id }}</td>
+               <td>{{ project.name }}</td>
+               <td>{{ project.add2 }}</td>
+               <td>{{ project.total }}</td>
+               <td> REJECTED BY TECHNICAL COMMITTEE </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+{% endfor %}
+{% endif %}
+</div>
+
+{% endblock %}

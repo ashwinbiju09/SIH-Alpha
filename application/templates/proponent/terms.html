@@ -13,6 +13,7 @@
                                  <br><br>
                               </div>
                               <form action="/application" method="POST">
+                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                  <p><b>What types of infrastructure may be funded under this sub-component?</b></p>
                                  <p>• The Scheme envisages providing support to a wide variety of sports infrastructure 
                                     projects, both Greenfield and Brownfield projects, provided they aim at bridging critical gaps in 

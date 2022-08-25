@@ -89,6 +89,8 @@ class Form_2(db.Model):
     m9 = db.Column(db.Integer)
     tot = db.Column(db.Integer)
     user_id = db.Column(db.Integer)
+    committee_approval = db.Column(db.Integer, default=0)
+    ministry_approval = db.Column(db.Integer, default=0)
 
     #form
 
@@ -172,6 +174,37 @@ class Form_5(db.Model):
     u_certificate = db.Column(db.String,nullable=False)
     details = db.Column(db.String,nullable=False)
     proof = db.Column(db.String,nullable=False)
+
+class Infrastructure(db.Model):
+        serialnumber = db.Column(db.Integer, primary_key=True)
+        state_or_ut = db.Column(db.String,nullable=False)
+        typeofgrantee = db.Column(db.String,nullable=False)
+        projectname = db.Column(db.String,nullable=False)
+        DateofSanction = db.Column(db.DateTime, default=datetime.utcnow)
+        Amountsanctioned = db.Column(db.Integer, primary_key=False)
+        Amountreleased = db.Column(db.Integer, primary_key=False)
+        percentofworkcompleted = db.Column(db.String,nullable=False)
+
+class States(db.Model):
+        serialnumber = db.Column(db.Integer, primary_key=True)
+        state_or_ut = db.Column(db.String,nullable=False)
+        MPH = db.Column(db.Integer,nullable=False)
+        Athletic_track = db.Column(db.Integer, nullable=False)
+        Football_field = db.Column(db.Integer, nullable=False)
+        Hockey_field = db.Column(db.Integer, nullable=False)
+        swimming_pool = db.Column(db.Integer, nullable=False)
+        others = db.Column(db.Integer, nullable=False)
+        total = db.Column(db.Integer, nullable=False)
+
+class Funds(db.Model):
+        serialnumber = db.Column(db.Integer, primary_key=True)
+        state_or_ut = db.Column(db.String,nullable=False)
+        SAI_projects = db.Column(db.String,nullable=False)
+        Amountsanctioned_s = db.Column(db.Integer, nullable=False)
+        Amountreleased_s = db.Column(db.Integer, nullable=False)
+        other_projects = db.Column(db.String,nullable=False)
+        Amountsanctioned_o = db.Column(db.Integer, nullable=False)
+        Amountreleased_o = db.Column(db.Integer, nullable=False)
 
 
 

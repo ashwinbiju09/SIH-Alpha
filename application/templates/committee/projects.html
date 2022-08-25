@@ -66,9 +66,10 @@
             </tr>
          </thead>
          <tbody>
-            {% set i = 0 %}
             {% for project in p %}
+            {% if project.committee_approval == 0 %}
             <tr>
+               <input type="hidden" name="id" value="{{project.id}}"/>
                <td>{{ project.id }}</td>
                <td>{{ project.name }}</td>
                <td>{{ project.add2 }}</td>
@@ -76,28 +77,32 @@
                   <form action="/projects" , method="POST">
                      <!-- <button name="method" value=1 type="submit" class="btn btn-primary" > Set Marks </button> -->
                      <a href="/cdpr_marks/{{project.id}}"
-                        style="padding: auto; width: 20%;justify-content: left;padding-right:100%;" type="button"
-                        class="form-control-login btn btn-theme btn-md">Set Marks</a>
+                        style="padding: auto; justify-content:center;" type="button"
+                        class="form-control-login btn btn-primary btn-theme btn-md">Set Marks</a>
                   </form>
                </td>
                <td>
                   <form action="/projects" , method="POST">
                      <!-- <button name="method" value=1 type="submit" class="btn btn-primary" > View </button> -->
                      <a href="/cdpr/{{project.id}}" value=2
-                        style="padding: auto; width: 20%;justify-content: left;padding-right:100%;" type="button"
-                        class="form-control-login btn btn-theme btn-md">View</a>
+                        style="padding: auto; justify-content:center;" type="button"
+                        class="form-control-login btn btn-primary btn-theme btn-md">View Details</a>
                   </form>
                </td>
                <td>
-                  <form action="/projects" , method="POST"><button name="method" value=3 type="submit"
-                        class="btn btn-success"> Approve </button></form>
+                  <form action="/projects" , method="POST">
+                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                     <button name="method" value=1 type="submit" class="btn btn-success"> Approve </button>
+                  </form>
                </td>
                <td>
-                  <form action="/projects" , method="POST"><button name="method" value=4 type="submit"
-                        class="btn btn-danger"> Reject </button></form>
+                  <form action="/projects" , method="POST">
+                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                     <button name="method" value=2 type="submit" class="btn btn-danger "> Reject </button>
+                  </form>
                </td>
             </tr>
-
+            {% endif %}
             {% endfor %}
          </tbody>
       </table>

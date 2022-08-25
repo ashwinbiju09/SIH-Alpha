@@ -24,6 +24,7 @@
                               <h3 class="h4 font-weight-bold text-theme" style="text-align: center; ">Sign Up</h3>
                            </div>
                            <form  action="/register" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
+                              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                               <div class="container form-group">
                                  <br>
                                  <div class="row">

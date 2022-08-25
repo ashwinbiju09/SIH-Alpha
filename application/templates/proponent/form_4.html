@@ -13,6 +13,7 @@
                          </div>
                          <br><br>
                          <form action="/form_4" method="POST" enctype="multipart/form-data" class="needs-validation">
+                           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                             <div class="form-group">
                                <label for="inputfile1">Why is this project required and how it responds to identified community needs, issues and helps bridge critical gaps in sports facilities in the vicinity of the project</label>
                                <input type="file" name="need" class="form-control" id="inputfile1" required >

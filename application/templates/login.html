@@ -25,6 +25,7 @@
                               <h6 class="h5 mb-0 mt-5">Welcome back!</h6>
                               <br>
                               <form method="POST" action="/login">
+                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                  <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
                                     <input type="email" class="form-control" name="email" id="exampleInputEmail1">

@@ -15,6 +15,7 @@
                          <h5> Provide the following documents:</h5>
                          <br>
                          <form action="/form_5" method="POST" enctype="multipart/form-data" class="needs-validation" onsubmit="myFunction()">
+                           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                          <div class="form-group">
                                <label for="inputfile1">Post execution maintanence plan for the project including source of funds for maintanence, etc.</label>
                                <input type="file" name="maintanence" class="form-control" id="inputfile1" required >

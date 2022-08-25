@@ -13,6 +13,7 @@
                               </div>
                               <br><br>
                               <form action="/form_3" method="POST" enctype="multipart/form-data" class="needs-validation">
+                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                  <div class="form-group">
                                     <label for="inputfile1">Project scope,methodology and how proposed outcomes will be completed within a prescribed timeframe</label>
                                     <input type="file" name="scope" class="form-control" id="inputfile1" required >

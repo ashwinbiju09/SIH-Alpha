@@ -13,6 +13,7 @@
                         <br><br>
                      </div>
                      <form action="/form_2" method="POST" enctype="multipart/form-data" class="needs-validation">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                      <div class="form-row">
                            <div class="form-group col-md-12">
                               <label for="inputname1">Name of the project</label>

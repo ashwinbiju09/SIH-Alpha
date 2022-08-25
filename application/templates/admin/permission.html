@@ -19,6 +19,7 @@
             {% if value.permission == False %}
             <tr>
             <form method="POST" action="/approval">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <input type="hidden" name="user_id" value="{{ value.id }}"/>
                   <td>{{ value.id }}</td>
                   <td>{{ value.email }}</td>
@@ -34,6 +35,7 @@
             {% if value.permission == True %}
             <tr style="background:#90ee90 ;">
             <form method="POST" action="/approval">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
               <input type="hidden" name="user_id" value="{{ value.id }}"/>
                 <td>{{ value.id }}</td>
                 <td>{{ value.email }}</td>

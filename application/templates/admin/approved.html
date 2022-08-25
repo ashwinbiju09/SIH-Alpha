@@ -1,7 +1,7 @@
-{% extends "committee/layout.html" %}
+{% extends "admin/layout.html" %}
 {% block content %}
 <section style="padding-left:16%; padding-top:2%; padding-right:1%">
-   <h3 class="h4 font-weight-bold text-theme" style="text-align:center;">Sanctioned Projects</h3>
+   <h3 class="h4 font-weight-bold text-theme" style="text-align:center;">Approved Projects</h3>
    <br>
    <div class="col-md-9"></div>
    <div class="col-md-3 " style="offset:20px;">
@@ -70,7 +70,7 @@
                <td>{{ project.name }}</td>
                <td>{{ project.add2 }}</td>
                <td>{{ project.total }}</td>
-               <td> APPROVED BY TECHNICAL COMMITTEE </td>
+               <td> APPROVED</td>
             </tr>
             {% endfor %}
          </tbody>

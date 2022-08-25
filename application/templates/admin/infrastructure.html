@@ -1,0 +1,45 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<section style="padding-left:18%;padding-right:2%;">
+    <h3 class="h4 font-weight-bold text-theme" style="text-align:center;padding-right: 17%;padding-top:30px;padding-bottom:30px;">Sanctioned Projects</h3>
+    <!-- Problem statement view -->
+               <!-- <div class="table-responsive text-nowrap"> -->
+                <!--Table-->
+                <table class="table table-striped">
+        
+                  <!--Table head-->
+                  <thead>
+                    <tr style="text-align:center;background-color:orange;">
+                      <th>S.NO</th>
+                      <th>States/UT's with districts</th>
+                      <th>Types of Grantee</th>
+                      <th>Project name</th>
+                      <th>Date of sanction</th>
+                      <th>Amount sanctioned</th>
+                      <th>Amount released</th>
+                      <th>Percentage of work completed</th>
+                    </tr>
+                  </thead>
+                  <!--Table head-->
+        
+                  <!--Table body-->
+                  <tbody>
+                    {% for value in projects %}
+                    <tr>
+                      <th scope="row">{{ value.serialnumber }}</th>
+                      <td>{{ value.state_or_ut }}</td>
+                      <td>{{ value.typeofgrantee }}</td>
+                      <td>{{ value.projectname }}</td>
+                      <td>{{ value.DateofSanction }}</td>
+                      <td>{{ value.Amountsanctioned }}</td>
+                      <td>{{ value.Amountreleased }}</td>
+                      <td>{{ value.percentofworkcompleted }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                  <!--Table body-->
+               </table>
+                <!--Table-->
+                  <br><br>
+</section>
+{% endblock content %}

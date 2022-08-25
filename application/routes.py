@@ -1,6 +1,11 @@
-from application import UPLOAD_FOLDER, app, db, bcrypt, mail
+import bcrypt
+import hashlib
+import hmac
+import random
+
+from application import app, db, mail, bcrypt_1
 from flask import render_template, redirect, url_for, request, flash, send_from_directory, current_app
-from application.models import User, Form_1, Form_2, Form_3, Form_4,Form_5
+from application.models import Infrastructure, User, Form_1, Form_2, Form_3, Form_4,Form_5
 from flask_mail import Message
 from flask_login import login_required, login_user, logout_user, current_user
 from werkzeug.utils import secure_filename
@@ -31,6 +36,10 @@ def register():
         #Data from form stored in Database
         name = request.form['name']
         email = request.form['email']
+
+        if email:
+            verify(email)
+
         password = request.form['password']
         phone = request.form['phone']
         role = request.form['role']
@@ -44,15 +53,47 @@ def register():
         aadhar = request.form['aadhar']
 
         #Hasing Password
-        hashed_pwd = bcrypt.generate_password_hash(password).decode('utf-8')
+        # hashed_pwd = bcrypt.generate_password_hash(password).decode('utf-8')
+
+        PEPPER = "QAZ@WWSX1edc647hdffhfhGD977&jjshdhjJG@@3"
+
+        salt = bcrypt.gensalt()
+
+        peppered_password = hmac.new(PEPPER.encode("utf-8"),password.encode("utf-8"), hashlib.sha256).hexdigest()
+        salted_peppered_password = bcrypt.hashpw(peppered_password.encode("utf-8"), salt)
+        hashed_pwd = salted_peppered_password.decode("utf-8")
 
         #Storing in DB
         user = User(name=name, email=email, password=hashed_pwd, phone=phone, role=role, state=state, city=city, org_name=org_name,aadhar=aadhar)
-        db.session.add(user)
-        db.session.commit()
+        verification(user)
+        # db.session.add(user)
+        # db.session.commit()
 
-        return redirect(url_for('login'))
+        return redirect(url_for('verification'))
     return render_template('register.html')
+
+
+otp = random.randint(000000,999999)
+
+@app.route('/verify')
+def verify(email):
+    msg=Message(subject='OTP Verification',sender='20eucs018@skcet.ac.in',recipients=[email])
+    msg.body=str(otp)
+    mail.send(msg)
+
+
+@app.route('/verification',methods=["POST","GET"])
+def verification(user):
+    print("Hello")
+    if request.method == "GET":
+        user_otp = request.form['user_otp']
+        print(user_otp)
+        if otp == int(user_otp) :
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('login'))
+
+    return render_template('otp.html')
 
 
 #Login route
@@ -64,7 +105,7 @@ def login():
         password = request.form['password']
 
         user = User.query.filter_by(email=email).first()
-        if user and bcrypt.check_password_hash(user.password, password=password):
+        if user and bcrypt_1.check_password_hash(user.password, password=password):
             if user.role == "Proponent":
                 login_user(user)
                 return redirect(url_for('proponent'))
@@ -89,9 +130,6 @@ def logout():
 def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message('Password Reset Request', sender='noreply@khelhindustan.com', recipients=[user.email])
-    # msg.html = f'''To reset your password, visit the following link: <a href="{url_for('reset_token', token=token, _external=True)}"> Click Here </a>
-    #If you did not make this request then simply ignore this email and no changes will be made.'''
-    
     msg.html = f''' To reset your password go to the following link : <a href="{ current_app.config['APP_URL'] }{ url_for('reset_token', token=token, external=True) }"> Click here </a> '''
     mail.send(msg)
 
@@ -446,21 +484,6 @@ def form_5():
     f5 = Form_5.query.all()
     return render_template('/proponent/form_5.html',f5=f5)
 
-@app.route('/delete/<int:id>')
-def delete(id):
-    p = Form_1.query.filter_by(id=id).first()
-    q = Form_2.query.filter_by(id=id).first()
-    r = Form_3.query.filter_by(id=id).first()
-    s = Form_4.query.filter_by(id=id).first()
-    t = Form_5.query.filter_by(id=id).first()
-    db.session.delete(p)
-    db.session.delete(q)
-    db.session.delete(r)
-    db.session.delete(s)
-    db.session.delete(t)
-    db.session.commit()
-    return redirect("/")
-
 
 #tech_committee routes
 @app.route("/projects",methods=['POST','GET'])
@@ -471,14 +494,19 @@ def projects():
     
     p = Form_2.query.all()
 
-    # if request.method == "POST":
-    #     req = request.form['method']
-    #     if req == "1" :
-    #         return redirect(url_for('cdpr'))
-    #     if req == "2":
-    #         return redirect(url_for('sanctioned_projects'))
-    #     if req == "3":
-    #         return redirect(url_for('rejected_projects'))
+    if request.method == "POST":
+        req = request.form['method']
+        id = request.form['id']
+        print(id)
+        project  = Form_2.query.get(id)
+        if req == "1":
+            if project:
+                setattr(project,'committee_approval',1)
+            return redirect(url_for('sanctioned_projects'))
+        if req == "2":
+            if project:
+                setattr(project,'committee_approval',2)
+            return redirect(url_for('rejected_projects'))
     return render_template('/committee/projects.html', p=p)
 
 
@@ -548,14 +576,28 @@ def cdpr_marks(id):
             if request.form['rm10']:
                 r.m10 = request.form['rm10']
 
+            if request.form['sm1']:
+                s.m1 = request.form['sm1']
             if request.form['sm2']:
                 s.m2 = request.form['sm2']
             if request.form['sm3']:
                 s.m3 = request.form['sm3']
             if request.form['sm4']:
                 s.m4 = request.form['sm4']
+            if request.form['sm5']:
+                s.m5 = request.form['sm5']
             if request.form['sm6']:
                 s.m6 = request.form['sm6']
+            if request.form['sm7']:
+                s.m7 = request.form['sm7']
+            if request.form['sm8']:
+                s.m8 = request.form['sm8']
+
+            q.tot = int(float(q.m1)+float(q.m2)+float(q.m3)+float(q.m4)+float(q.m5)+float(q.m6)+float(q.m7)+float(q.m8)+float(q.m9))
+            r.tot = int(float(r.m1)+float(r.m2)+float(r.m3)+float(r.m4)+float(r.m5)+float(r.m6)+float(r.m7)+float(r.m8)+float(r.m9)+float(r.m10))
+            s.tot = int(float(s.m1)+float(s.m2)+float(s.m3)+float(s.m4)+float(s.m5)+float(s.m6)+float(s.m7)+float(s.m8))
+            q.total = q.tot+r.tot+s.tot
+
 
             db.session.add(q)
             db.session.add(r)
@@ -573,25 +615,42 @@ def cdpr_marks(id):
         return render_template('committee/dpr_marks.html',p=p,q=q,r=r,s=s,t=t)
 
 @app.route('/filter_projects/<string:state>', methods=['GET','POST'])
+@login_required
 def fil_pro(state):
     p = Form_2.query.filter_by(add2=state).all()
     return render_template('/committee/filter_projects.html',p=p)
+
+@app.route('/filter_projects/approved/<string:state>', methods=['GET','POST'])
+@login_required
+def fil_app_pro(state):
+    if not current_user.role == "Tech":
+         return redirect(url_for('error'))
+    p = Form_2.query.filter_by(add2=state, committee_approval=1).all()
+    return render_template('/committee/approved_filter_projects.html',p=p)
+
+@app.route('/filter_projects/rejected/<string:state>', methods=['GET','POST'])
+@login_required
+def fil_rej_pro(state):
+    if not current_user.role == "Tech":
+         return redirect(url_for('error'))
+    p = Form_2.query.filter_by(add2=state, committee_approval=2).all()
+    return render_template('/committee/rejected_filter_projects.html',p=p)
 
 @app.route("/sanctioned_projects",methods=['POST','GET'])
 @login_required
 def sanctioned_projects():
         if not current_user.role == "Tech":
             return redirect(url_for('error'))
-
-        return render_template("/committee/sanctioned.html")
+        p=Form_2.query.filter_by(committee_approval=1).all()
+        return render_template("/committee/sanctioned.html",p=p)
 
 @app.route("/rejected_projects",methods=['POST','GET'])
 @login_required
 def rejected_projects():
         if not current_user.role == "Tech":
             return redirect(url_for('error'))
-
-        return render_template("/committee/rejected.html")
+        p=Form_2.query.filter_by(committee_approval=2).all()
+        return render_template("/committee/rejected.html",p=p)
 
 
 #admin routes
@@ -617,21 +676,39 @@ def approval():
 
 @app.route("/project",methods=['POST','GET'])
 @login_required
-def project():
+def admin_projects():
     if not current_user.role == "Admin":
          return redirect(url_for('error'))
     
     p = Form_2.query.all()
 
-    # if request.method == "POST":
-    #     req = request.form['method']
-    #     if req == "1" :
-    #         return redirect(url_for('cdpr'))
-    #     if req == "2":
-    #         return redirect(url_for('sanctioned_projects'))
-    #     if req == "3":
-    #         return redirect(url_for('rejected_projects'))
+    if request.method == "POST":
+        req = request.form['method']
+        if req == "1":
+            return redirect(url_for('sanctioned_projects'))
+        if req == "2":
+            return redirect(url_for('rejected_projects'))
     return render_template('/admin/projects.html', p=p)
+
+@app.route("/approved",methods=['POST','GET'])
+@login_required
+def admin_approved_project():
+    if not current_user.role == "Admin":
+         return redirect(url_for('error'))
+    
+    p = Form_2.query.filter_by(ministry_approval=1).all()
+
+    return render_template('/admin/approved.html', p=p)
+
+@app.route("/rejectedpro",methods=['POST','GET'])
+@login_required
+def admin_rejected_project():
+    if not current_user.role == "Admin":
+         return redirect(url_for('error'))
+    
+    p = Form_2.query.filter_by(ministry_approval=2).all()
+
+    return render_template('/admin/rejected.html', p=p)
 
 @app.route("/dpr_admin/<int:id>",methods=['POST','GET'])
 @login_required
@@ -655,6 +732,38 @@ def land_proof():
         return redirect(url_for('error'))
 
     path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
-    print(path)
     return send_from_directory(path, str(current_user.id)+'_land_proof.pdf')
+
+@app.route('/filter_projects_ad/<string:state>', methods=['GET','POST'])
+@login_required
+def admin_filter_projects(state):
+    if not current_user.role == "Admin":
+        return redirect(url_for('error'))
+    p = Form_2.query.filter_by(add2=state).all()
+    return render_template('/admin/filter_projects.html',p=p)
+
+@app.route('/filter_projects_ad/approved/<string:state>', methods=['GET','POST'])
+@login_required
+def admin_app(state):
+    if not current_user.role == "Admin":
+         return redirect(url_for('error'))
+    p = Form_2.query.filter_by(add2=state, ministry_approval=1).all()
+    return render_template('/admin/filter_app.html',p=p)
+
+@app.route('/filter_projects_ad/rejected/<string:state>', methods=['GET','POST'])
+@login_required
+def admin_rej(state):
+    if not current_user.role == "Admin":
+         return redirect(url_for('error'))
+    p = Form_2.query.filter_by(add2=state, ministry_approval=2).all()
+    return render_template('/admin/filter_rej.html',p=p)
+
+@app.route("/sanctioned_infrastructure")
+@login_required
+def sanctioned_infrastructure():
+    if not current_user.role == "Admin":
+        return redirect(url_for('error'))
     
+    projects = Infrastructure.query.all()
+
+    return render_template('/admin/infrastructure.html',projects=projects)

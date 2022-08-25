@@ -21,6 +21,7 @@
                               <h3 class="h4 font-weight-bold text-theme" style="text-align:center;">Password confirmation</h3>
                            </div>
                            <form method="POST" action="/reset_token">
+                              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                               <div class="container form-group">
                                  <div class="row" style="padding-top:40px;">
                                     <div class="col-md-3"></div>
