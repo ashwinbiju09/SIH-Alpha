@@ -78,7 +78,8 @@
                <td>{{ project.name }}</td>
                <td>{{ project.add2 }}</td>
                <td>
-                  <form action="/projects" , method="POST">
+                  <form action="/project" , method="POST">
+                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                      <a href="/dpr_admin/{{project.id}}" 
                      style="padding: auto; justify-content:center;" type="button"
                      class="form-control-login btn btn-primary btn-theme btn-md">View Details</a>
@@ -86,12 +87,18 @@
                </td>
                <td>{{ project.total }}</td>
              <td>
-                 <form action="/projects" , method="POST"><button name="method" value=1 type="submit"
-                         class="btn btn-success"> Approve </button></form>
+                 <form action="/project" , method="POST">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                  <input type="hidden" name="id" value="{{ project.id }}"/>
+                  <button name="val" value=1 type="submit" class="btn btn-success"> Approve </button>
+               </form>
              </td>
              <td>
-                 <form action="/projects" , method="POST"><button name="method" value=2 type="submit"
-                         class="btn btn-danger"> Reject </button></form>
+                 <form action="/project" , method="POST">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                  <input type="hidden" name="id" value="{{ project.id }}"/>
+                  <button name="val" value=2 type="submit" class="btn btn-danger"> Reject </button>
+               </form>
              </td>
             </tr>
             {% endfor %}

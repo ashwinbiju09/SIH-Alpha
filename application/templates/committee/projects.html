@@ -89,7 +89,7 @@
                   </form>
                </td>
                <td>
-                  <form action="/projects" , method="POST" onsubmit="setattr(project,'committee_approval',1)">
+                  <form action="/projects" , method="POST">
                      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                      <input type="hidden" name="id" value="{{ project.id }}"/>
                      <button name="method" value=1 type="submit" class="btn btn-success"> Approve </button>

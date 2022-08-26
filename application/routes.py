@@ -559,9 +559,11 @@ def projects():
         if req == '1':
             if project:
                 setattr(project,'committee_approval',1)
+                return redirect(url_for('sanctioned_projects'))
         if req == '2':
             if project:
                 setattr(project,'committee_approval',2)
+                return redirect(url_for('rejected_projects'))
         db.session.commit()
     return render_template('/committee/projects.html', p=p)
 
@@ -761,13 +763,19 @@ def admin_projects():
     p = Form_2.query.filter_by(committee_approval=1).all()
 
     if request.method == "POST":
-        req = request.form['method']
+        val = request.form['val']
+        id = request.form['id']
+        project  = Form_2.query.filter_by(id=id).first()
+        if project:
+            if val == '1':
+                setattr(project,'ministry_approval',1)
 
-        if req == "1":
-            return redirect(url_for('sanctioned_projects'))
-        if req == "2":
-            return redirect(url_for('rejected_projects'))
+            elif val == '2':
+                setattr(project,'ministry_approval',2)
+
+        db.session.commit()
     return render_template('/admin/projects.html', p=p)
+
 
 @app.route("/approved",methods=['POST','GET'])
 @login_required
@@ -803,7 +811,36 @@ def dpr_admin(id):
 
         return render_template("/admin/dpr.html",p=p,q=q,r=r,s=s,t=t)
 
+@app.route("/compare",methods=['POST','GET'])
+@login_required
+def compare():
+        if not current_user.role == "Admin":
+            return redirect(url_for('error'))
+        if request.method == 'POST':
+            p1 = request.form['p1']
+            p2 = request.form['p2']
+            return redirect(url_for('compare_projects'))
 
+        return render_template("/admin/compare.html",p1=p1,p2=p2)
+
+@app.route("/comparepro/<int:p1>/<int:p2>",methods=['POST','GET'])
+@login_required
+def compare_projects(p1,p2):
+        if not current_user.role == "Admin":
+            return redirect(url_for('error'))
+
+        p = Form_1.query.filter_by(id=p1).first()
+        q = Form_2.query.filter_by(id=p1).first()
+        r = Form_3.query.filter_by(id=p1).first()
+        s = Form_4.query.filter_by(id=p1).first()
+        t = Form_5.query.filter_by(id=p1).first()
+        u = Form_1.query.filter_by(id=p2).first()
+        v = Form_2.query.filter_by(id=p2).first()
+        w = Form_3.query.filter_by(id=p2).first()
+        x = Form_4.query.filter_by(id=p2).first()
+        y = Form_5.query.filter_by(id=p2).first()
+
+        return render_template("/admin/comparepro.html",p=p,q=q,r=r,s=s,t=t,u=u,v=v,w=w,x=x,y=y)
 
 @app.route('/filter_projects_ad/<string:state>', methods=['GET','POST'])
 @login_required
