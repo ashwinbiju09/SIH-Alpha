@@ -17,10 +17,11 @@
          <tbody>
             {% for value in users %}
             {% if value.permission == False %}
-            <tr>
+            <tr style="background:#ffb3b2;">
             <form method="POST" action="/approval">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <input type="hidden" name="user_id" value="{{ value.id }}"/>
+                <input type="hidden" name="email" value="{{ value.email }}"/>
                   <td>{{ value.id }}</td>
                   <td>{{ value.email }}</td>
                   <td>{{ value.org_name }}</td>
@@ -33,10 +34,11 @@
             </tr>
             {% endif %}
             {% if value.permission == True %}
-            <tr style="background:#90ee90 ;">
+            <tr style="background:#b9db92 ;">
             <form method="POST" action="/approval">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
               <input type="hidden" name="user_id" value="{{ value.id }}"/>
+              <input type="hidden" name="email" value="{{ value.email }}"/>
                 <td>{{ value.id }}</td>
                 <td>{{ value.email }}</td>
                 <td>{{ value.org_name }}</td>

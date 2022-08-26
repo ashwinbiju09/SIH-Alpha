@@ -32,4 +32,13 @@ mail = Mail(app)
 
 app.config['APP_URL'] = 'http://127.0.0.1:5000'
 
+app.config.update(
+SESSION_COOKIE_SECURE=True,
+SESSION_COOKIE_HTTPONLY=True,
+SESSION_COOKIE_SAMESITE='Lax',
+)
+
+#We can set secure cookies in response
+# response.set_cookie('key', 'value', secure=True, httponly=True, samesite='Lax')
+
 from application import routes

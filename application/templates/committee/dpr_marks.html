@@ -1,6 +1,7 @@
 {% extends "committee/layout.html" %}
 {% block content %}
-<form action="/cdpr_marks/{{q.id}}" method="POST">
+<form action="/cdpr_marks/{{q.id}}" method="POST" >
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   <section style="padding-left:18%;padding-right:2%;">
     <h3 class="h4 font-weight-bold text-theme"
       style="text-align:center;padding-right: 17%;padding-top:30px;padding-bottom:30px;">Detailed Project Report</h3>

@@ -67,13 +67,19 @@
          </thead>
          <tbody>
             {% for project in p %}
+            {% if project.ministry_approval == 1 %}
+            <tr style="background:#b9db92 ;">
+            {% elif project.ministry_approval == 2 %}
+            <tr style="background:#ffb3b2 ;">
+            {% else %}
             <tr>
+            {% endif %}
                <td>{{ project.id }}</td>
                <td>{{ project.name }}</td>
                <td>{{ project.add2 }}</td>
                <td>
                   <form action="/projects" , method="POST">
-                     <a href="/dpr/{{project.id}}" 
+                     <a href="/dpr_admin/{{project.id}}" 
                      style="padding: auto; justify-content:center;" type="button"
                      class="form-control-login btn btn-primary btn-theme btn-md">View Details</a>
                   </form>

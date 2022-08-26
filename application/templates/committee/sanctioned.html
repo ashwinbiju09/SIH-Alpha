@@ -61,6 +61,7 @@
                <th>PROJECT LOCATION</th>
                <th>TOTAL</th>
                <th>STATUS</th>
+               <th>PROJECT DETAILS</th>
             </tr>
          </thead>
          <tbody>
@@ -71,6 +72,13 @@
                <td>{{ project.add2 }}</td>
                <td>{{ project.total }}</td>
                <td> APPROVED BY TECHNICAL COMMITTEE </td>
+               <td>
+                  <form action="/projects" , method="POST">
+                     <a href="/cdpr/{{project.id}}" value=2
+                        style="padding: auto; justify-content:center;" type="button"
+                        class="form-control-login btn btn-primary btn-theme btn-md">View Details</a>
+                  </form>
+             </td>
             </tr>
             {% endfor %}
          </tbody>

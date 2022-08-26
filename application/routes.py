@@ -1,3 +1,5 @@
+from math import e
+import secrets
 import bcrypt
 import hashlib
 import hmac
@@ -47,30 +49,43 @@ def register():
         if role == 'Proponent':
             createFolder(UPLOAD_FOLDER)
 
+        if role == 'Tech':
+            tech_notification(name,email)
+
         state = request.form['state']
         city = request.form['city']
         org_name = request.form['org_name']
         aadhar = request.form['aadhar']
 
         #Hasing Password
-        # hashed_pwd = bcrypt.generate_password_hash(password).decode('utf-8')
+        hashed_pwd = bcrypt_1.generate_password_hash(password).decode('utf-8')
 
-        PEPPER = "QAZ@WWSX1edc647hdffhfhGD977&jjshdhjJG@@3"
+        # PEPPER = "QAZ@WWSX1edc647hdffhfhGD977&jjshdhjJG@@3"
 
         salt = bcrypt.gensalt()
 
-        peppered_password = hmac.new(PEPPER.encode("utf-8"),password.encode("utf-8"), hashlib.sha256).hexdigest()
-        salted_peppered_password = bcrypt.hashpw(peppered_password.encode("utf-8"), salt)
-        hashed_pwd = salted_peppered_password.decode("utf-8")
+        # peppered_password = hmac.new(PEPPER.encode("utf-8"),password.encode("utf-8"), hashlib.sha256).hexdigest()
+        # salted_peppered_password = bcrypt.hashpw(peppered_password.encode("utf-8"), salt)
+        # hashed_pwd = salted_peppered_password.decode("utf-8")
 
         #Storing in DB
         user = User(name=name, email=email, password=hashed_pwd, phone=phone, role=role, state=state, city=city, org_name=org_name,aadhar=aadhar)
-        verification(user)
-        # db.session.add(user)
-        # db.session.commit()
+        # verification(user)
+        db.session.add(user)
+        db.session.commit()
 
+        # return redirect(url_for('verification'))
         return redirect(url_for('verification'))
     return render_template('register.html')
+
+def tech_notification(name,email):
+    msg = Message('Nomination for Appraisal Committee', sender='20eucs018@skcet.ac.in', recipients=['khelhindustan@gmail.com'])
+    msg.html = f''' Greetings !  
+    {name} : {email} has registered for the the appraisal and vetting committee. User awaits ministry approval 
+    Thank You
+    '''
+    mail.send(msg)
+
 
 
 otp = random.randint(000000,999999)
@@ -83,15 +98,16 @@ def verify(email):
 
 
 @app.route('/verification',methods=["POST","GET"])
-def verification(user):
+def verification():
     print("Hello")
-    if request.method == "GET":
+    if request.method == "POST":
         user_otp = request.form['user_otp']
         print(user_otp)
         if otp == int(user_otp) :
-            db.session.add(user)
-            db.session.commit()
-            return redirect(url_for('login'))
+            # db.session.add(user)
+            # db.session.commit()
+            pass
+        return redirect(url_for('login'))
 
     return render_template('otp.html')
 
@@ -103,7 +119,6 @@ def login():
     if request.method == 'POST' :
         email = request.form['email']
         password = request.form['password']
-
         user = User.query.filter_by(email=email).first()
         if user and bcrypt_1.check_password_hash(user.password, password=password):
             if user.role == "Proponent":
@@ -309,27 +324,35 @@ def form_2():
 
         #Snippet to input file and store in local directory
         land_proof = request.files['land_proof']
-        land_proof_rename = "{}_land_proof.pdf".format(current_user.id)
-        land_proof.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(land_proof_rename)))
+        land_proof_name = "{}_land_proof.pdf".format(current_user.id)
+        land_proof.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(land_proof_name)))
+        land_proof_rename = "{}_{}_land_proof.pdf".format(current_user.id,secrets.token_hex(16))
 
         land_certificate = request.files['land_certificate']
-        land_certificate_rename = "{}_land_certificate.pdf".format(current_user.id)
-        land_certificate.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(land_certificate_rename)))
+        land_certificate_name = "{}_certifiacte.pdf".format(current_user.id)
+        land_certificate.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(land_certificate_name)))
+        land_certificate_rename = "{}_{}_land_certificate.pdf".format(current_user.id,secrets.token_hex(16))
 
 
         boq = request.files['boq']
-        boq_rename = "{}_boq.pdf".format(current_user.id)
-        boq.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(boq_rename)))
+        boq_name = "{}_boq.pdf".format(current_user.id)
+        boq.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(boq_name)))
+        boq_rename = "{}_{}_boq.pdf".format(current_user.id,secrets.token_hex(16))
+
 
 
         difference = request.files['difference']
-        difference_rename = "{}_difference.pdf".format(current_user.id)
-        difference.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(difference_rename)))
+        difference_name = "{}_difference.pdf".format(current_user.id)
+        difference.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(difference_name)))
+        difference_rename = "{}_{}_difference.pdf".format(current_user.id,secrets.token_hex(16))
+
 
 
         milestones = request.files['milestones']
-        milestones_rename = "{}_milestones.pdf".format(current_user.id)
-        milestones.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(milestones_rename)))
+        milestones_name = "{}_milestones.pdf".format(current_user.id)
+        milestones.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(milestones_name)))
+        milestones_rename = "{}_{}_milestones.pdf".format(current_user.id,secrets.token_hex(16))
+
 
 
         #DB commits
@@ -361,32 +384,45 @@ def form_3():
 
         #Snippet to input file and store in local directory
         scope = request.files['scope']
-        scope_rename = "{}_scope.pdf".format(current_user.id)
-        scope.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(scope_rename)))
+        scope_name = "{}_scope.pdf".format(current_user.id)
+        scope.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(scope_name)))
+        scope_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         schematic_plan = request.files['schematic_plan']
-        schematic_plan_rename = "{}_schematic_plan.pdf".format(current_user.id)
-        schematic_plan.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(schematic_plan_rename)))
+        schematic_plan_name = "{}_schematic_plan.pdf".format(current_user.id)
+        schematic_plan.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(schematic_plan_name)))
+        schematic_plan_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         proposed_method = request.files['proposed_method']
-        proposed_method_rename = "{}_proposed_method.pdf".format(current_user.id)
-        proposed_method.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(proposed_method_rename)))
+        proposed_method_name = "{}_proposed_method.pdf".format(current_user.id)
+        proposed_method.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(proposed_method_name)))
+        proposed_method_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
 
         fastrack = request.files['fastrack']
-        fastrack_rename = "{}_fastrack.pdf".format(current_user.id)
-        fastrack.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(fastrack_rename)))
+        fastrack_name = "{}_fastrack.pdf".format(current_user.id)
+        fastrack.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(fastrack_name)))
+        fastrack_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         utilization_plan = request.files['utilization_plan']
-        utilization_plan_rename = "{}_utilization_plan.pdf".format(current_user.id)
-        utilization_plan.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(utilization_plan_rename)))
+        utilization_plan_name = "{}_utilization_plan.pdf".format(current_user.id)
+        utilization_plan.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(utilization_plan_name)))
+        utilization_plan_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         economic_plan = request.files['economic_impact']
-        economic_plan_rename = "{}_economic_plan.pdf".format(current_user.id)
-        economic_plan.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(economic_plan_rename)))
+        economic_plan_name = "{}_economic_plan.pdf".format(current_user.id)
+        economic_plan.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(economic_plan_name)))
+        economic_plan_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         integration = request.files['integration']
-        integration_rename = "{}_integration.pdf".format(current_user.id)
-        integration.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(integration_rename)))
+        integration_name = "{}_integration.pdf".format(current_user.id)
+        integration.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(integration_name)))
+        integration_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         #DB commits
         form_3 = Form_3(inc=inc, asi=asi, noc=noc, nop=nop, ub=ub, scope=scope_rename, schematic_plan=schematic_plan_rename, proposed_method=proposed_method_rename, fastrack=fastrack_rename, utilization_plan=utilization_plan_rename, economic_plan=economic_plan_rename, integration=integration_rename, )
@@ -412,24 +448,34 @@ def form_4():
 
         #Snippet to input file and store in local directory
         need = request.files['need']
-        need_rename = "{}_need.pdf".format(current_user.id)
-        need.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(need_rename)))
+        need_name = "{}_need.pdf".format(current_user.id)
+        need.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(need_name)))
+        need_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         excellence = request.files['excellence']
-        excellence_rename = "{}_excellence.pdf".format(current_user.id)
-        excellence.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(excellence_rename)))
+        excellence_name = "{}_excellence.pdf".format(current_user.id)
+        excellence.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(excellence_name)))
+        excellence_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         estimation = request.files['estimation']
-        estimation_rename = "{}_estimation.pdf".format(current_user.id)
-        estimation.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(estimation_rename)))
+        estimation_name = "{}_estimation.pdf".format(current_user.id)
+        estimation.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(estimation_name)))
+        estimation_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         benefits = request.files['benefits']
-        benefits_rename = "{}_benefits.pdf".format(current_user.id)
-        benefits.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(benefits_rename)))
+        benefits_name = "{}_benefits.pdf".format(current_user.id)
+        benefits.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(benefits_name)))
+        benefits_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         equity = request.files['equity']
-        equity_rename = "{}_equity.pdf".format(current_user.id)
-        equity.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(equity_rename)))
+        equity_name = "{}_equity.pdf".format(current_user.id)
+        equity.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(equity_name)))
+        equity_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         #DB commits
         form_4 = Form_4(nd=nd, demand=demand, pg=pg, apo=apo, need=need_rename, excellence=excellence_rename, estimation=estimation_rename, equity=equity_rename,benefits=benefits_rename)
@@ -457,24 +503,34 @@ def form_5():
 
         #Snippet to input file and store in local directory
         maintanence = request.files['maintanence']
-        maintanence_rename = "{}_maintanence.pdf".format(current_user.id)
-        maintanence.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(maintanence_rename)))
+        maintanence_name = "{}_maintanence.pdf".format(current_user.id)
+        maintanence.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(maintanence_name)))
+        maintanence_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         design = request.files['design']
-        design_rename = "{}_design.pdf".format(current_user.id)
-        design.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(design_rename)))
+        design_name = "{}_design.pdf".format(current_user.id)
+        design.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(design_name)))
+        design_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         u_certificate = request.files['u_certificate']
-        u_certificate_rename = "{}_u_certificate.pdf".format(current_user.id)
-        u_certificate.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(u_certificate_rename)))
+        u_certificate_name = "{}_u_certificate.pdf".format(current_user.id)
+        u_certificate.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(u_certificate_name)))
+        u_certificate_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         details = request.files['details']
-        details_rename = "{}_details.pdf".format(current_user.id)
-        details.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(details_rename)))
+        details_name = "{}_details.pdf".format(current_user.id)
+        details.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(details_name)))
+        details_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         proof = request.files['proof']
-        proof_rename = "{}_proof.pdf".format(current_user.id)
-        proof.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(proof_rename)))
+        proof_name = "{}_proof.pdf".format(current_user.id)
+        proof.save(os.path.join('E:/SIH v2/application/media/user_documents/'+ current_user.name , secure_filename(proof_name)))
+        proof_rename = "{}_{}_scope.pdf".format(current_user.id,secrets.token_hex(16))
+
 
         #DB commits
         form_5 = Form_5(prev=prev, od=od, comp=comp, maintanence=maintanence_rename, design=design_rename, u_certificate=u_certificate_rename, details=details_rename, proof=proof_rename)
@@ -485,6 +541,8 @@ def form_5():
     return render_template('/proponent/form_5.html',f5=f5)
 
 
+
+
 #tech_committee routes
 @app.route("/projects",methods=['POST','GET'])
 @login_required
@@ -492,21 +550,19 @@ def projects():
     if not current_user.role == "Tech":
          return redirect(url_for('error'))
     
-    p = Form_2.query.all()
+    p = Form_2.query.filter_by(committee_approval=0).all()
 
     if request.method == "POST":
         req = request.form['method']
         id = request.form['id']
-        print(id)
-        project  = Form_2.query.get(id)
-        if req == "1":
+        project  = Form_2.query.filter_by(id=id).first()
+        if req == '1':
             if project:
                 setattr(project,'committee_approval',1)
-            return redirect(url_for('sanctioned_projects'))
-        if req == "2":
+        if req == '2':
             if project:
                 setattr(project,'committee_approval',2)
-            return redirect(url_for('rejected_projects'))
+        db.session.commit()
     return render_template('/committee/projects.html', p=p)
 
 
@@ -665,14 +721,36 @@ def approval():
     if request.method == "POST":
             permission = request.form['permission']
             id = request.form['user_id']
+            email = request.form['email']
             user = User.query.get(id)
             if user :
                 value = permission == '1' if True else False
                 setattr(user,'permission',value)
+            if permission == '1':
+                approval_email(email)
+            elif permission == '0':
+                denied_mail(email)
             db.session.commit()
             return redirect(url_for('approval'))
 
     return render_template('admin/permission.html',users=users)
+
+def approval_email(email):
+    msg = Message('Access Granted', sender='20eucs018@skcet.ac.in', recipients=[email])
+    msg.html = f''' Greetings !
+    Your application has been approved. You can now sign in with your credentials.
+    Thank You !
+    '''
+    mail.send(msg)
+
+def denied_mail(email):
+    msg = Message('Access Denied', sender='20eucs018@skcet.ac.in', recipients=[email])
+    msg.html = f''' Greetings !
+    Your application has been denied. For further queries contact system admin.
+    Thank You !
+    '''
+    mail.send(msg)
+
 
 @app.route("/project",methods=['POST','GET'])
 @login_required
@@ -680,10 +758,11 @@ def admin_projects():
     if not current_user.role == "Admin":
          return redirect(url_for('error'))
     
-    p = Form_2.query.all()
+    p = Form_2.query.filter_by(committee_approval=1).all()
 
     if request.method == "POST":
         req = request.form['method']
+
         if req == "1":
             return redirect(url_for('sanctioned_projects'))
         if req == "2":
@@ -725,14 +804,6 @@ def dpr_admin(id):
         return render_template("/admin/dpr.html",p=p,q=q,r=r,s=s,t=t)
 
 
-@app.route("/land_proof",methods=['GET','POST'])
-@login_required
-def land_proof():
-    if not current_user.role == "Proponent":
-        return redirect(url_for('error'))
-
-    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
-    return send_from_directory(path, str(current_user.id)+'_land_proof.pdf')
 
 @app.route('/filter_projects_ad/<string:state>', methods=['GET','POST'])
 @login_required
@@ -767,3 +838,158 @@ def sanctioned_infrastructure():
     projects = Infrastructure.query.all()
 
     return render_template('/admin/infrastructure.html',projects=projects)
+
+#file routes
+@app.route("/land_proof",methods=['GET','POST'])
+@login_required
+def land_proof():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_land_proof.pdf')
+
+@app.route("/land_certificate",methods=['GET','POST'])
+@login_required
+def land_certificate():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_land_certificate.pdf')
+
+@app.route("/boq",methods=['GET','POST'])
+@login_required
+def boq():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_boq.pdf')
+
+@app.route("/difference",methods=['GET','POST'])
+@login_required
+def difference():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_difference.pdf')
+
+@app.route("/milestones",methods=['GET','POST'])
+@login_required
+def milestones():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_milestones.pdf')
+
+@app.route("/scope",methods=['GET','POST'])
+@login_required
+def scope():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_scope.pdf')
+
+@app.route("/schematic_plan",methods=['GET','POST'])
+@login_required
+def schematic_plan():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_schematic_plan.pdf')
+
+@app.route("/proposed_method",methods=['GET','POST'])
+@login_required
+def proposed_method():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_proposed_method.pdf')
+
+@app.route("/fastrack",methods=['GET','POST'])
+@login_required
+def fastrack():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_fastrack.pdf')
+
+@app.route("/utilization_plan",methods=['GET','POST'])
+@login_required
+def utilization_plan():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_utilization_plan.pdf')
+
+@app.route("/economic_impact",methods=['GET','POST'])
+@login_required
+def economic_impact():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_economic_impact.pdf')
+
+@app.route("/integration",methods=['GET','POST'])
+@login_required
+def integration():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_integration.pdf')
+
+@app.route("/need",methods=['GET','POST'])
+@login_required
+def need():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_need.pdf')
+
+@app.route("/excellence",methods=['GET','POST'])
+@login_required
+def excellence():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_excellence.pdf')
+
+@app.route("/estimation",methods=['GET','POST'])
+@login_required
+def estimation():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_estimation.pdf')
+
+@app.route("/benefits",methods=['GET','POST'])
+@login_required
+def benefits():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_benefits.pdf')
+
+@app.route("/equity",methods=['GET','POST'])
+@login_required
+def equity():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_equity.pdf')
+
+@app.route("/maintanence",methods=['GET','POST'])
+@login_required
+def maintanence():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_maintanence.pdf')
+
+@app.route("/design",methods=['GET','POST'])
+@login_required
+def design():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_design.pdf')
+
+@app.route("/u_certificate",methods=['GET','POST'])
+@login_required
+def u_certificate():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_u_certificate.pdf')
+
+@app.route("/details",methods=['GET','POST'])
+@login_required
+def details():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_details.pdf')
+
+@app.route("/proof",methods=['GET','POST'])
+@login_required
+def proof():
+
+    path = "E:/SIH v2/application/media/user_documents/" + current_user.name + "/"
+    return send_from_directory(path, str(current_user.id)+'_proof.pdf')

@@ -88,6 +88,7 @@ class Form_2(db.Model):
     m8 = db.Column(db.Integer)
     m9 = db.Column(db.Integer)
     tot = db.Column(db.Integer)
+    total = db.Column(db.Integer)
     user_id = db.Column(db.Integer)
     committee_approval = db.Column(db.Integer, default=0)
     ministry_approval = db.Column(db.Integer, default=0)

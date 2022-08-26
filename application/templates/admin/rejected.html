@@ -10,42 +10,42 @@
       <select name="filter_state" id="inputState" style="background-color: rgb(255, 255, 255);"
          onchange="location = this.value;" class="form-control form-control-md">
          <option>Select State</option>
-         <option value="/filter_projects/rejected/Andra Pradesh">Andra Pradesh</option>
-         <option value="/filter_projects/rejected/Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-         <option value="/filter_projects/rejected/Arunachal Pradesh">Arunachal Pradesh</option>
-         <option value="/filter_projects/rejected/Assam">Assam</option>
-         <option value="/filter_projects/rejected/Bihar">Bihar</option>
-         <option value="/filter_projects/rejected/Chhattisgarh">Chhattisgarh</option>
-         <option value="/filter_projects/rejected/Chandigarh">Chandigarh</option>
-         <option value="/filter_projects/rejected/Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
-         <option value="/filter_projects/rejected/Daman and Diu">Daman and Diu</option>
-         <option value="/filter_projects/rejected/Delhi">Delhi</option>
-         <option value="/filter_projects/rejected/Goa">Goa</option>
-         <option value="/filter_projects/rejected/Gujarat">Gujarat</option>
-         <option value="/filter_projects/rejected/Haryana">Haryana</option>
-         <option value="/filter_projects/rejected/Himachal Pradesh">Himachal Pradesh</option>
-         <option value="/filter_projects/rejected/Jammu and Kashmir">Jammu and Kashmir</option>
-         <option value="/filter_projects/rejected/Jharkhand">Jharkhand</option>
-         <option value="/filter_projects/rejected/Karnataka">Karnataka</option>
-         <option value="/filter_projects/rejected/Kerala">Kerala</option>
-         <option value="/filter_projects/rejected/Lakshadeep">Lakshadeep</option>
-         <option value="/filter_projects/rejected/Madya Pradesh">Madya Pradesh</option>
-         <option value="/filter_projects/rejected/Maharashtra">Maharashtra</option>
-         <option value="/filter_projects/rejected/Manipur">Manipur</option>
-         <option value="/filter_projects/rejected/Meghalaya">Meghalaya</option>
-         <option value="/filter_projects/rejected/Mizoram">Mizoram</option>
-         <option value="/filter_projects/rejected/Nagaland">Nagaland</option>
-         <option value="/filter_projects/rejected/Orissa">Orissa</option>
-         <option value="/filter_projects/rejected/Punjab">Punjab</option>
-         <option value="/filter_projects/rejected/Pondicherry">Pondicherry</option>
-         <option value="/filter_projects/rejected/Rajasthan">Rajasthan</option>
-         <option value="/filter_projects/rejected/Sikkim">Sikkim</option>
-         <option value="/filter_projects/rejected/Tamil Nadu">Tamil Nadu</option>
-         <option value="/filter_projects/rejected/Telagana">Telagana</option>
-         <option value="/filter_projects/rejected/Tripura">Tripura</option>
-         <option value="/filter_projects/rejected/Uttaranchal">Uttaranchal</option>
-         <option value="/filter_projects/rejected/Uttar Pradesh">Uttar Pradesh</option>
-         <option value="/filter_projects/rejected/West Bengal">West Bengal</option>
+         <option value="/filter_projects_ad/rejected/Andra Pradesh">Andra Pradesh</option>
+         <option value="/filter_projects_ad/rejected/Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+         <option value="/filter_projects_ad/rejected/Arunachal Pradesh">Arunachal Pradesh</option>
+         <option value="/filter_projects_ad/rejected/Assam">Assam</option>
+         <option value="/filter_projects_ad/rejected/Bihar">Bihar</option>
+         <option value="/filter_projects_ad/rejected/Chhattisgarh">Chhattisgarh</option>
+         <option value="/filter_projects_ad/rejected/Chandigarh">Chandigarh</option>
+         <option value="/filter_projects_ad/rejected/Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+         <option value="/filter_projects_ad/rejected/Daman and Diu">Daman and Diu</option>
+         <option value="/filter_projects_ad/rejected/Delhi">Delhi</option>
+         <option value="/filter_projects_ad/rejected/Goa">Goa</option>
+         <option value="/filter_projects_ad/rejected/Gujarat">Gujarat</option>
+         <option value="/filter_projects_ad/rejected/Haryana">Haryana</option>
+         <option value="/filter_projects_ad/rejected/Himachal Pradesh">Himachal Pradesh</option>
+         <option value="/filter_projects_ad/rejected/Jammu and Kashmir">Jammu and Kashmir</option>
+         <option value="/filter_projects_ad/rejected/Jharkhand">Jharkhand</option>
+         <option value="/filter_projects_ad/rejected/Karnataka">Karnataka</option>
+         <option value="/filter_projects_ad/rejected/Kerala">Kerala</option>
+         <option value="/filter_projects_ad/rejected/Lakshadeep">Lakshadeep</option>
+         <option value="/filter_projects_ad/rejected/Madya Pradesh">Madya Pradesh</option>
+         <option value="/filter_projects_ad/rejected/Maharashtra">Maharashtra</option>
+         <option value="/filter_projects_ad/rejected/Manipur">Manipur</option>
+         <option value="/filter_projects_ad/rejected/Meghalaya">Meghalaya</option>
+         <option value="/filter_projects_ad/rejected/Mizoram">Mizoram</option>
+         <option value="/filter_projects_ad/rejected/Nagaland">Nagaland</option>
+         <option value="/filter_projects_ad/rejected/Orissa">Orissa</option>
+         <option value="/filter_projects_ad/rejected/Punjab">Punjab</option>
+         <option value="/filter_projects_ad/rejected/Pondicherry">Pondicherry</option>
+         <option value="/filter_projects_ad/rejected/Rajasthan">Rajasthan</option>
+         <option value="/filter_projects_ad/rejected/Sikkim">Sikkim</option>
+         <option value="/filter_projects_ad/rejected/Tamil Nadu">Tamil Nadu</option>
+         <option value="/filter_projects_ad/rejected/Telagana">Telagana</option>
+         <option value="/filter_projects_ad/rejected/Tripura">Tripura</option>
+         <option value="/filter_projects_ad/rejected/Uttaranchal">Uttaranchal</option>
+         <option value="/filter_projects_ad/rejected/Uttar Pradesh">Uttar Pradesh</option>
+         <option value="/filter_projects_ad/rejected/West Bengal">West Bengal</option>
       </select>
 
    </div>
@@ -59,6 +59,7 @@
                <th>PROJECT ID</th>
                <th>PROJECT NAME</th>
                <th>PROJECT LOCATION</th>
+               <th>PROJECT DETAILS</th>
                <th>TOTAL</th>
                <th>STATUS</th>
             </tr>
@@ -69,6 +70,13 @@
                <td>{{ project.id }}</td>
                <td>{{ project.name }}</td>
                <td>{{ project.add2 }}</td>
+               <td>
+                  <form action="/projects" , method="POST">
+                     <a href="/dpr_admin/{{project.id}}" value=2
+                     style="padding: auto; justify-content:center;" type="button"
+                     class="form-control-login btn btn-primary btn-theme btn-md">View Details</a>
+                  </form>
+               </td>
                <td>{{ project.total }}</td>
                <td> REJECTED </td>
                

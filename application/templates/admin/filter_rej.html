@@ -1,4 +1,4 @@
-{% extends "committee/layout.html" %}
+{% extends "admin/layout.html" %}
 {% block content %}
 <section style="padding-left:16%; padding-top:2%; padding-right:1%"></section>
 <h3 class="h4 font-weight-bold text-theme" style="text-align:center;">Rejected Projects</h3>
@@ -76,6 +76,7 @@
                 <th>PROJECT ID</th>
                <th>PROJECT NAME</th>
                <th>PROJECT LOCATION</th>
+               <th>PROJECT DETAILS</th>
                <th>TOTAL</th>
                <th>STATUS</th>
             </tr>
@@ -85,6 +86,13 @@
                <td>{{ project.id }}</td>
                <td>{{ project.name }}</td>
                <td>{{ project.add2 }}</td>
+               <td>
+                <form action="/projects" , method="POST">
+                   <a href="/dpr_admin/{{project.id}}" value=2
+                   style="padding: auto; justify-content:center;" type="button"
+                   class="form-control-login btn btn-primary btn-theme btn-md">View Details</a>
+                </form>
+             </td>
                <td>{{ project.total }}</td>
                <td> REJECTED BY TECHNICAL COMMITTEE </td>
             </tr>

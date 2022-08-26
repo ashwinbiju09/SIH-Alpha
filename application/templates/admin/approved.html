@@ -10,42 +10,42 @@
       <select name="filter_state" id="inputState" style="background-color: rgb(255, 255, 255);"
          onchange="location = this.value;" class="form-control form-control-md">
          <option>Select State</option>
-         <option value="/filter_projects/approved/Andra Pradesh">Andra Pradesh</option>
-         <option value="/filter_projects/approved/Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-         <option value="/filter_projects/approved/Arunachal Pradesh">Arunachal Pradesh</option>
-         <option value="/filter_projects/approved/Assam">Assam</option>
-         <option value="/filter_projects/approved/Bihar">Bihar</option>
-         <option value="/filter_projects/approved/Chhattisgarh">Chhattisgarh</option>
-         <option value="/filter_projects/approved/Chandigarh">Chandigarh</option>
-         <option value="/filter_projects/approved/Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
-         <option value="/filter_projects/approved/Daman and Diu">Daman and Diu</option>
-         <option value="/filter_projects/approved/Delhi">Delhi</option>
-         <option value="/filter_projects/approved/Goa">Goa</option>
-         <option value="/filter_projects/approved/Gujarat">Gujarat</option>
-         <option value="/filter_projects/approved/Haryana">Haryana</option>
-         <option value="/filter_projects/approved/Himachal Pradesh">Himachal Pradesh</option>
-         <option value="/filter_projects/approved/Jammu and Kashmir">Jammu and Kashmir</option>
-         <option value="/filter_projects/approved/Jharkhand">Jharkhand</option>
-         <option value="/filter_projects/approved/Karnataka">Karnataka</option>
-         <option value="/filter_projects/approved/Kerala">Kerala</option>
-         <option value="/filter_projects/approved/Lakshadeep">Lakshadeep</option>
-         <option value="/filter_projects/approved/Madya Pradesh">Madya Pradesh</option>
-         <option value="/filter_projects/approved/Maharashtra">Maharashtra</option>
-         <option value="/filter_projects/approved/Manipur">Manipur</option>
-         <option value="/filter_projects/approved/Meghalaya">Meghalaya</option>
-         <option value="/filter_projects/approved/Mizoram">Mizoram</option>
-         <option value="/filter_projects/approved/Nagaland">Nagaland</option>
-         <option value="/filter_projects/approved/Orissa">Orissa</option>
-         <option value="/filter_projects/approved/Punjab">Punjab</option>
-         <option value="/filter_projects/approved/Pondicherry">Pondicherry</option>
-         <option value="/filter_projects/approved/Rajasthan">Rajasthan</option>
-         <option value="/filter_projects/approved/Sikkim">Sikkim</option>
-         <option value="/filter_projects/approved/Tamil Nadu">Tamil Nadu</option>
-         <option value="/filter_projects/approved/Telagana">Telagana</option>
-         <option value="/filter_projects/approved/Tripura">Tripura</option>
-         <option value="/filter_projects/approved/Uttaranchal">Uttaranchal</option>
-         <option value="/filter_projects/approved/Uttar Pradesh">Uttar Pradesh</option>
-         <option value="/filter_projects/approved/West Bengal">West Bengal</option>
+         <option value="/filter_projects_ad/approved/Andra Pradesh">Andra Pradesh</option>
+         <option value="/filter_projects_ad/approved/Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+         <option value="/filter_projects_ad/approved/Arunachal Pradesh">Arunachal Pradesh</option>
+         <option value="/filter_projects_ad/approved/Assam">Assam</option>
+         <option value="/filter_projects_ad/approved/Bihar">Bihar</option>
+         <option value="/filter_projects_ad/approved/Chhattisgarh">Chhattisgarh</option>
+         <option value="/filter_projects_ad/approved/Chandigarh">Chandigarh</option>
+         <option value="/filter_projects_ad/approved/Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+         <option value="/filter_projects_ad/approved/Daman and Diu">Daman and Diu</option>
+         <option value="/filter_projects_ad/approved/Delhi">Delhi</option>
+         <option value="/filter_projects_ad/approved/Goa">Goa</option>
+         <option value="/filter_projects_ad/approved/Gujarat">Gujarat</option>
+         <option value="/filter_projects_ad/approved/Haryana">Haryana</option>
+         <option value="/filter_projects_ad/approved/Himachal Pradesh">Himachal Pradesh</option>
+         <option value="/filter_projects_ad/approved/Jammu and Kashmir">Jammu and Kashmir</option>
+         <option value="/filter_projects_ad/approved/Jharkhand">Jharkhand</option>
+         <option value="/filter_projects_ad/approved/Karnataka">Karnataka</option>
+         <option value="/filter_projects_ad/approved/Kerala">Kerala</option>
+         <option value="/filter_projects_ad/approved/Lakshadeep">Lakshadeep</option>
+         <option value="/filter_projects_ad/approved/Madya Pradesh">Madya Pradesh</option>
+         <option value="/filter_projects_ad/approved/Maharashtra">Maharashtra</option>
+         <option value="/filter_projects_ad/approved/Manipur">Manipur</option>
+         <option value="/filter_projects_ad/approved/Meghalaya">Meghalaya</option>
+         <option value="/filter_projects_ad/approved/Mizoram">Mizoram</option>
+         <option value="/filter_projects_ad/approved/Nagaland">Nagaland</option>
+         <option value="/filter_projects_ad/approved/Orissa">Orissa</option>
+         <option value="/filter_projects_ad/approved/Punjab">Punjab</option>
+         <option value="/filter_projects_ad/approved/Pondicherry">Pondicherry</option>
+         <option value="/filter_projects_ad/approved/Rajasthan">Rajasthan</option>
+         <option value="/filter_projects_ad/approved/Sikkim">Sikkim</option>
+         <option value="/filter_projects_ad/approved/Tamil Nadu">Tamil Nadu</option>
+         <option value="/filter_projects_ad/approved/Telagana">Telagana</option>
+         <option value="/filter_projects_ad/approved/Tripura">Tripura</option>
+         <option value="/filter_projects_ad/approved/Uttaranchal">Uttaranchal</option>
+         <option value="/filter_projects_ad/approved/Uttar Pradesh">Uttar Pradesh</option>
+         <option value="/filter_projects_ad/approved/West Bengal">West Bengal</option>
       </select>
 
    </div>
@@ -59,6 +59,7 @@
                <th>PROJECT ID</th>
                <th>PROJECT NAME</th>
                <th>PROJECT LOCATION</th>
+               <th>PROJECT DETAILS</th>
                <th>TOTAL</th>
                <th>STATUS</th>
             </tr>
@@ -69,6 +70,13 @@
                <td>{{ project.id }}</td>
                <td>{{ project.name }}</td>
                <td>{{ project.add2 }}</td>
+               <td>
+                  <form action="/projects" , method="POST">
+                     <a href="/dpr_admin/{{project.id}}" value=2
+                     style="padding: auto; justify-content:center;" type="button"
+                     class="form-control-login btn btn-primary btn-theme btn-md">View Details</a>
+                  </form>
+               </td>
                <td>{{ project.total }}</td>
                <td> APPROVED</td>
             </tr>
